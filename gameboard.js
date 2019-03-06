@@ -3,6 +3,9 @@ class Gameboard {
         this.currentTurn = true;
         this.teamRed = new Team();
         this.teamBlue = new Team();
+        this.red = 0;
+        this.blue = 0;
+        this.assassin = 0;
         this.cards = [];
     }
 
@@ -10,38 +13,32 @@ class Gameboard {
     }
 
     addCard() {
-        // if red !=0
-        // red = 9;
-        // blue = 9;
-        // ranbdom = 
-        // red--
-
-        red = 0;
-        blue = 0;
-        assassin = 0;
+        var words = ['Quan', 'Chris', 'Eric']
+        var word = null;
+        var type = null;
         // create 25 cards using for loop using card class
-        for (i=0; i<25; i++) {
-            if (red !== 1) {
-                // create a red card
-                color = red;
-                type = redTeam;
+        for (i=0; i<3; i++) {
+            if (this.red !== 1) {
+                type = 'redTeam';
                 red++;
-            } else if (blue !== 1) {
-                color = blue;
-                type = blueTeam;
-                // create blue card
+            } else if (this.blue !== 1) {
+                type = 'blueTeam';
                 blue++;
-            } else {
-                color = white;
-                type = assassin;
+            } else if (this.assassin !== 1) {
+                type = 'assassin';
                 assassin++;
             }
-            var card = new Card(word, color, type);
-            
+
+            word = word[0];
+            words.shift();
+            var card = new Card(word, type);
+            this.card.push(card);
 
             // append to body of game
+            $(".boardContainer").append(card.createCard());
         }
 
+        // call that specific function to updateFirebase();
     }
 
     clickHandler(card) {
