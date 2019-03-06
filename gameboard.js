@@ -1,51 +1,53 @@
 class Gameboard {
-    constuctor() {
-        this.currentTurn = true;
-        this.teamRed = new Team();
-        this.teamBlue = new Team();
+    constructor () {
+        this.currentTurn = 'red'  ;
+        // this.teamRed = new Team();
+        // this.teamBlue = new Team();
         this.red = 0;
         this.blue = 0;
         this.assassin = 0;
-        this.cards = [];
     }
 
     changeViewOfUser() {
     }
 
     addCard() {
-        var words = ['Quan', 'Chris', 'Eric']
+        var words = ['Quan', 'Chris', 'Eric'];
         var word = null;
         var type = null;
+        console.log(this.currentTurn);
         // create 25 cards using for loop using card class
-        for (i=0; i<3; i++) {
+        for (var i=0; i<3; i++) {
             if (this.red !== 1) {
-                type = 'redTeam';
-                red++;
+                type = 'red';
+                this.red++;
             } else if (this.blue !== 1) {
-                type = 'blueTeam';
-                blue++;
+                type = 'blue';
+                this.blue++;
             } else if (this.assassin !== 1) {
                 type = 'assassin';
-                assassin++;
+                this.assassin++;
             }
 
-            word = word[0];
+            word = words[0];
             words.shift();
-            var card = new Card(word, type);
-            this.card.push(card);
+            var cardDiv = new Card(word, type).createCard();
 
             // append to body of game
-            $(".boardContainer").append(card.createCard());
+            $(".boardContainer").append(cardDiv);
         }
 
+        // this.cards = card;
         // call that specific function to updateFirebase();
     }
 
     clickHandler(card) {
+        card.toggleStyle();
         checkGuess(card);
     }
 
     checkGuess() {
+        
         // if wrong
         //     Gameboard.currentTurn change
         // else if right
