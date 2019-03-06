@@ -3,15 +3,12 @@ header {
     text-transform: uppercase;
     font-size: 50px;
     letter-spacing: 5px;
-    background-color: darkcyan;
-    margin-bottom: 10px;
-    color: white;
+    font-family: 'Special Elite', cursive;
 }
 
 body {
-    background-image: url('https://wi-images.condecdn.net/image/rEq00MaAy86/crop/1620/f/spies.jpg');
-    background-size: cover;
-    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
 }
 
@@ -70,12 +67,12 @@ body {
     color: white;
 }
 
-.gray {
+.civilian {
     background-color: gray;
     color: white;
 }
 
-.black {
+.assassin {
     background-color: black;
     color: white;
 }

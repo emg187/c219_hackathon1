@@ -2,6 +2,7 @@ class Spymaster {
     constructor() {
         this.wordClue = null;
         this.numberClue = null;
+        this.key = null;
     }
 
     pickOpponentCard() {
