@@ -1,27 +1,33 @@
 class Card {
-    constructor(word, color, type) {
+
+    constructor(word, type) {
         this.word = word;
-        this.color = color;
         this.type = type;
+        this.domElement;
+
+        this.toggleStyling = this.toggleStyling.bind(this);
     }
 
-    getCardColor() {
+    createCard(){
+        this.domElement = $("<div>");
+        this.domElement.text(word);
+        this.domElement.addClass("guessBox");
+        this.domElement.attr("type", this.type);
+        return this.domElement;
     }
 
-    getCardType() { 
+    toggleStyling(){
+        if (this.attr("type")===game.currentTurn){
+            this.addClass(turn);
+        } else {
+            if (game.currentTurn==="red"){
+                this.addClass("blue");
+            } else {
+                this.addClass("red");
+            }
+        }
     }
 
-    createCard() {
-        // this creates the div
-        // card.text(this.word) to the div, adds word to this
-        // add some class that creates styling
-    }
-
-    flipCard() {
-        // flips card when it is picked
-    }
-
-    clickHandler() {
-        Gameboard.checkGuess();
-    }
 }
+
+
