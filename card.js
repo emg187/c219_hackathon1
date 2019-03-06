@@ -5,6 +5,12 @@ class Card {
         this.type = type;
     }
 
+    getCardColor() {
+    }
+
+    getCardType() { 
+    }
+
     createCard() {
         // this creates the div
         // card.text(this.word) to the div, adds word to this
@@ -13,5 +19,9 @@ class Card {
 
     flipCard() {
         // flips card when it is picked
+    }
+
+    clickHandler() {
+        Gameboard.checkGuess();
     }
 }
