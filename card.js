@@ -1,12 +1,14 @@
 class Card {
-    constructor(word) {
-        this.word = null;
-        this.value = null;
-        this.color = null;
+    constructor(word, color, type) {
+        this.word = word;
+        this.color = color;
+        this.type = type;
     }
 
     createCard() {
-
+        // this creates the div
+        // card.text(this.word) to the div, adds word to this
+        // add some class that creates styling
     }
 
     flipCard() {
