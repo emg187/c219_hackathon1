@@ -1,6 +1,8 @@
 $(document).ready(initializeApp);
 
+var game = null;
+
 function initializeApp() {
-    var game = new Gameboard();
+    game = new Gameboard();
     game.addCard();
 }
