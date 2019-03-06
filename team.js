@@ -7,6 +7,17 @@ class Team {
     }
 
     checkWinCondition() {
-        
+    }
+
+    getTeamColor() {
+        return this.color;
+    }
+
+    getTeamPoints () {
+        // return team's points
+    }
+
+    setTeamPoints() {
+        // changes team's points
     }
 }

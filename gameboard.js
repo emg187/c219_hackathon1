@@ -43,4 +43,17 @@ class Gameboard {
         }
 
     }
+
+    clickHandler(card) {
+        checkGuess(card);
+    }
+
+    checkGuess() {
+        // if wrong
+        //     Gameboard.currentTurn change
+        // else if right
+        //     team.points++
+        // else if assassin
+        //     game over
+    }
 }
