@@ -1,5 +1,6 @@
 $(document).ready(initializeApp);
 
+var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
 //create player objects 
 
@@ -16,6 +17,14 @@ function initializeApp() {
 
 function clickHandler() {
     $(".guessBox").on('click', game.checkGuess);
+
+    $("#resetGame").on('click', resetGame);
+}
+
+function resetGame() {
+    $(".gameContainer").empty();
+    $(".winner").empty();
+    initializeApp();
 }
 
 
