@@ -43,7 +43,6 @@ class Gameboard {
     }
 
     checkGuess() {
-        console.log('made a guess');
         debugger;
         var key = $(this).text();
         game.allCards.key.toggleStyling();
