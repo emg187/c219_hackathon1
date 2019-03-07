@@ -13,13 +13,13 @@ class Card {
     }
 
     toggleStyling(){
-        if ($(this).attr("type")==="civilian"){
-            $(this).addClass("civilian");
+        if ($(event.currentTarget).attr("type")==="civilian"){
+            $(event.currentTarget).addClass("civilian");
         } else {
-            if ($(this).attr("type")==="red"){
-                $(this).addClass("red");
+            if ($(event.currentTarget).attr("type")==="red"){
+                $(event.currentTarget).addClass("red");
             } else {
-                $(this).addClass("blue");
+                $(event.currentTarget).addClass("blue");
             }
         }
     }
