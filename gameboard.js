@@ -43,21 +43,8 @@ class Gameboard {
         checkGuess(card);
     }
 
-    handleAssassin() {
-        // ends game
+    checkGuess() {
         var value = $(this).text();
-        return value
-    }
-
-    checkGuess(team) {
-        debugger;
-        // if (team.players.spymaster) {
-            
-        // }
-
-        debugger;
-
-        var value = $(this).text()
         game.allCards[value].toggleStyling();
 
         if ( game.allCards[value].type === 'assassin') {
