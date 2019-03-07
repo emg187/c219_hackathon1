@@ -1,9 +1,9 @@
 class Team {
-    constructor(spymaster, operatives, color) {
+    constructor(color, operatives) {
         this.color = color;
         this.spymaster = spymaster;
         this.ops = operatives;
-        this.points = 0; // counts how many operatives found
+        this.points = 0; // counts how many correct guesses made
     }
 
     checkWinCondition() {
@@ -17,7 +17,9 @@ class Team {
         // return team's points
     }
 
-    setTeamPoints() {
-        // changes team's points
+    adjustTeamPoints() {
+        this.points++;
     }
 }
+
+
