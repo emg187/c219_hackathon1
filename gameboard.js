@@ -55,11 +55,18 @@ class Gameboard {
 
     checkGuess() {
         var value = $(this).text();
-        game.allCards[value].toggleStyling();
 
-        if ( game.allCards[value].type === 'assassin') {
+        if (game.allCards[value].type === 'assassin') {
             console.log('end game');
-            // end game
+            game.handleAssassin();
+            return;
+        } else {
+            game.allCards[value].toggleStyling();
         }
     }
+
+    handleAssassin(){
+        //ends the game 
+    }
 }
+
