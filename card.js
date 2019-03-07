@@ -9,7 +9,6 @@ class Card {
         var domElement = $("<div>");
         domElement.text(this.word);
         domElement.addClass("guessBox");
-        domElement.attr("type", this.type);
         return domElement;
     }
 
