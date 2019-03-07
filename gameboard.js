@@ -1,11 +1,12 @@
 class Gameboard {
     constructor () {
-        this.currentTurn = 'red'  ;
+        this.currentTurn = 'red';
         // this.teamRed = new Team();
         // this.teamBlue = new Team();
         this.red = 0;
         this.blue = 0;
         this.assassin = 0;
+        this.allCards = {};
     }
 
     changeViewOfUser() {
@@ -31,28 +32,20 @@ class Gameboard {
 
             word = words[0];
             words.shift();
-            var cardDiv = new Card(word, type).createCard();
+            var cardObj = new Card(word, type);
+            this.allCards[word] = cardObj;
 
             // append to body of game
-            $(".boardContainer").append(cardDiv);
+            $(".boardContainer").append(cardObj.createCard());
         }
-
         // this.cards = card;
         // call that specific function to updateFirebase();
     }
 
-    clickHandler(card) {
-        card.toggleStyle();
-        checkGuess(card);
-    }
-
     checkGuess() {
-        
-        // if wrong
-        //     Gameboard.currentTurn change
-        // else if right
-        //     team.points++
-        // else if assassin
-        //     game over
+        console.log('made a guess');
+        debugger;
+        var key = $(this).text();
+        game.allCards.key.toggleStyling();
     }
 }

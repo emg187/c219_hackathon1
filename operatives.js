@@ -1,5 +1,5 @@
 class Operatives {
-    consturctor() {
+    constructor () {
         this.canGuess = true;
         this.isWrong = null;
     }
