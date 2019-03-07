@@ -1,5 +1,16 @@
 $(document).ready(initializeApp);
 
+var words = [
+    'Quan', 'Chris', 'Eric', 'Kenneth', 'Michelle', 'David',
+    'Jay', 'Gormley', 'Jimmy', 'Alice', 'Westley', 'Joe',
+    'Johnny', 'Jennifer Lai', 'Andrew', 'Jaimie', 'Jason',
+    'Jun', 'Caroline', 'Jennifer', 'Vivian', 'Kylie', 
+    'Andy', 'Dan', 'Cody'
+];
+
+var allCards = new AllCards(words);
+allCards.createAllCards();
+
 var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
 
@@ -9,7 +20,8 @@ var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"]; //these u
 
 function initializeApp() {
     game = new Gameboard(redTeamPlayers, blueTeamPlayers);
-    game.addCard();
+
+    game.addCard(allCards.possibleCards);
 
     clickHandler();
 }
@@ -25,5 +37,3 @@ function resetGame() {
     $(".winner").empty();
     initializeApp();
 }
-
-
