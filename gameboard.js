@@ -6,6 +6,7 @@ class Gameboard {
         this.red = 0;
         this.blue = 0;
         this.assassin = 0;
+        this.allCards = {};
     }
 
     changeViewOfUser() {
@@ -31,10 +32,12 @@ class Gameboard {
 
             word = words[0];
             words.shift();
-            var cardDiv = new Card(word, type).createCard();
+            var cardDiv = new Card(word, type);
+            this.allCards[cardDiv.word] = cardDiv;
+
 
             // append to body of game
-            $(".boardContainer").append(cardDiv);
+            $(".boardContainer").append(cardDiv.createCard());
         }
 
         // this.cards = card;
@@ -46,7 +49,7 @@ class Gameboard {
         checkGuess(card);
     }
 
-    checkGuess() {
+    checkGuess(card) {
         
         // if wrong
         //     Gameboard.currentTurn change
