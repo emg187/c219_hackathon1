@@ -1,8 +1,8 @@
 class Gameboard {
-    constructor () {
+    constructor (redOperatives, blueOperatives) {
         this.currentTurn = 'red';
-        // this.teamRed = new Team();
-        // this.teamBlue = new Team();
+        this.teamRed = new Team('red', redOperatives, 1);
+        this.teamBlue = new Team('blue', blueOperatives, 1);
         this.red = 0;
         this.blue = 0;
         this.assassin = 0;
@@ -16,8 +16,7 @@ class Gameboard {
         var words = ['Quan', 'Chris', 'Eric'];
         var word = null;
         var type = null;
-        console.log(this.currentTurn);
-        // create 25 cards using for loop using card class
+        
         for (var i=0; i<3; i++) {
             if (this.red !== 1) {
                 type = 'red';
@@ -35,19 +34,35 @@ class Gameboard {
             var cardObj = new Card(word, type);
             this.allCards[word] = cardObj;
 
-            // append to body of game
             $(".boardContainer").append(cardObj.createCard());
         }
-        // this.cards = card;
-        // call that specific function to updateFirebase();
     }
+
     clickHandler(card) {
         card.toggleStyle();
         checkGuess(card);
     }
-    checkGuess() {
+
+    handleAssassin() {
+        // ends game
+        var value = $(this).text();
+        return value
+    }
+
+    checkGuess(team) {
         debugger;
-        var key = $(this).text();
-        game.allCards.key.toggleStyling();
+        // if (team.players.spymaster) {
+            
+        // }
+
+        debugger;
+
+        var value = $(this).text()
+        game.allCards[value].toggleStyling();
+
+        if ( game.allCards[value].type === 'assassin') {
+            console.log('end game');
+            // end game
+        }
     }
 }
