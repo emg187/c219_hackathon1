@@ -13,10 +13,6 @@ class Card {
     }
 
     toggleStyling(){
-        if ($(this).attr("type")==="civilian"){
-            $(event.currentTarget).addClass("civilian");
-        } else {
-            if ($(this).attr("type")==="red"){
         if ($(event.currentTarget).attr("type")==="civilian"){
             $(event.currentTarget).addClass("civilian");
         } else {
