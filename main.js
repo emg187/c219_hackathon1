@@ -13,6 +13,13 @@ function initializeApp() {
 
 function clickHandler() {
     $(".guessBox").on('click', game.checkGuess);
+
+    $("#resetGame").on('click', resetGame);
+}
+
+function resetGame() {
+    $(".gameContainer").empty();
+    initializeApp();
 }
 
 
