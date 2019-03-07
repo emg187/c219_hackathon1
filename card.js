@@ -4,8 +4,6 @@ class Card {
         this.word = word;
         this.type = type;
         this.domElement;
-
-        this.toggleStyling = this.toggleStyling.bind(this);
     }
 
     createCard(){
@@ -17,13 +15,15 @@ class Card {
     }
 
     toggleStyling(){
-        if (this.attr("type")===game.currentTurn){
-            this.addClass(turn);
+        if (this.type==="civilian"){
+            this.domElement.addClass("civilian");    
+        } else if (this.type===game.currentTurn){
+            this.addClass(game.currentTurn);
         } else {
             if (game.currentTurn==="red"){
-                this.addClass("blue");
+                this.domElement.addClass("blue");
             } else {
-                this.addClass("red");
+                this.domElement.addClass("red");
             }
         }
     }
