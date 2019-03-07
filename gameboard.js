@@ -44,7 +44,7 @@ class Gameboard {
             var cardObj = new Card(word, type);
             this.allCards[word] = cardObj;
 
-            $(".boardContainer").append(cardObj.createCard());
+            $(".gameContainer").append(cardObj.createCard());
         }
     }
 
@@ -55,11 +55,30 @@ class Gameboard {
 
     checkGuess() {
         var value = $(this).text();
-        game.allCards[value].toggleStyling();
 
         if ( game.allCards[value].type === 'assassin') {
             console.log('end game');
-            // end game
+            game.handleAssassin();
+            game.checkWhoWins();
+        } else {
+            game.allCards[value].toggleStyling();
         }
+    }
+
+    handleAssassin() {
+        $(".guessBox").off('click');
+        $(event.currentTarget).addClass('assassin');
+    }
+
+    checkWhoWins() {
+        var winner = null;
+
+        if (game.currentTurn === 'blue') {
+            winner = 'red';
+        } else {
+            winner = 'blue';
+        }
+
+        $(".winner").text(winner + ' wins!');
     }
 }
