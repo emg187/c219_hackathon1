@@ -22,8 +22,7 @@ var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"]; //these u
 
 function initializeApp() {
     codeNamesDb = new GenericFBModel('CodeNames Database',uploadCardToDb);
-    game = new Gameboard();
-    game.addCard();
+
     game = new Gameboard(redTeamPlayers, blueTeamPlayers);
 
     game.addCard(allCards.possibleCards);
@@ -36,38 +35,19 @@ function initializeApp() {
 
     // var chrisCard = game.allCards.Chris;
     // uploadCardToDb(chrisCard);
-   var text = "chris";
 }
 
 function clickHandler() {
     $(".guessBox").on('click', game.checkGuess);
+
+    $("#resetGame").on('click', resetGame);
+
 }
 
 function uploadCardToDb(card)
 {
     console.log('saving');
-    codeNamesDb.saveState({
-        cards: {
-           alice : {
-               type : "blue",
-               word : "alice"
-           },
-           1 : "bye",
-           2 : "test",
-           3 : "blahblah"
-
-        },
-        word: "David",
-        type: "blue",
-        team: {
-            red: 'yo',
-            blue: 'wee'
-        }
-    })     
-}
-    
-
-    $("#resetGame").on('click', resetGame);
+    codeNamesDb.saveState(game.allCards)     
 }
 
 function resetGame() {
