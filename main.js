@@ -46,6 +46,7 @@ function clickHandler() {
 
 function uploadCardToDb(card)
 {
+    debugger;
     console.log('saving');
     codeNamesDb.saveState(game.allCards)     
 }
