@@ -8,7 +8,7 @@ class Card {
 
     createCard(){
         this.domElement = $("<div>");
-        this.domElement.text(word);
+        this.domElement.text(this.word);
         this.domElement.addClass("guessBox");
         this.domElement.attr("type", this.type);
         return this.domElement;

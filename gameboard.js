@@ -1,6 +1,6 @@
 class Gameboard {
     constructor () {
-        this.currentTurn = 'red'  ;
+        this.currentTurn = 'red';
         // this.teamRed = new Team();
         // this.teamBlue = new Team();
         this.red = 0;
@@ -32,30 +32,22 @@ class Gameboard {
 
             word = words[0];
             words.shift();
-            var cardDiv = new Card(word, type);
-            this.allCards[cardDiv.word] = cardDiv;
-
+            var cardObj = new Card(word, type);
+            this.allCards[word] = cardObj;
 
             // append to body of game
-            $(".boardContainer").append(cardDiv.createCard());
+            $(".boardContainer").append(cardObj.createCard());
         }
-
         // this.cards = card;
         // call that specific function to updateFirebase();
     }
-
     clickHandler(card) {
         card.toggleStyle();
         checkGuess(card);
     }
-
-    checkGuess(card) {
-        
-        // if wrong
-        //     Gameboard.currentTurn change
-        // else if right
-        //     team.points++
-        // else if assassin
-        //     game over
+    checkGuess() {
+        debugger;
+        var key = $(this).text();
+        game.allCards.key.toggleStyling();
     }
 }
