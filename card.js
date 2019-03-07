@@ -14,7 +14,12 @@ class Card {
 
     toggleStyling(){
         if (this.type==="civilian"){
-            this.domElement.addClass("civilian");    
+            this.domElement.addClass("civilian");
+            if (game.currentTurn === 'red') {
+                game.currentTurn = 'blue';
+            } else {
+                game.currentTurn = 'red';
+            }
         } else if (this.type===game.currentTurn){
             this.domElement.addClass(game.currentTurn);
             teamPoints[game.currentTurn]++;
@@ -23,11 +28,12 @@ class Card {
             if (game.currentTurn==="red"){
                 this.domElement.addClass("blue");
                 teamPoints['blue']++;
+                game.currentTurn = 'blue';
             } else {
                 this.domElement.addClass("red");
-                teamPoints['red'];
+                teamPoints['red']++;
+                game.currentTurn = 'red';
             }
-            console.log(teamPoints);
         }
     }
 
