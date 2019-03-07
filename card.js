@@ -18,12 +18,17 @@ class Card {
             this.domElement.addClass("civilian");    
         } else if (this.type===game.currentTurn){
             this.domElement.addClass(game.currentTurn);
+            teamPoints[game.currentTurn]++;
+            console.log(teamPoints);
         } else {
             if (game.currentTurn==="red"){
                 this.domElement.addClass("blue");
+                teamPoints['blue']++;
             } else {
                 this.domElement.addClass("red");
+                teamPoints['red'];
             }
+            console.log(teamPoints);
         }
     }
 
