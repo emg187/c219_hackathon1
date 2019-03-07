@@ -1,65 +1,50 @@
 class Gameboard {
-    constructor (redOperatives, blueOperatives) {
-        this.currentTurn = 'red';
-        this.teamRed = new Team('red', redOperatives, 1);
-        this.teamBlue = new Team('blue', blueOperatives, 1);
-        this.allCards = {};
+    
+    constructor(points, currentTurn){
+        this.gamePoints = points;
+        this.currentTurn = currentTurn;
     }
 
-    changeViewOfUser() {
-    }
-
-    addCard(cards) {
-        for (var i=0; i<25; i++) {
-            var rand = Math.floor(Math.random()*cards.length);
-            var key = cards[rand].word;
-            var value = cards[rand].type;
-            var cardObj = new Card(key, value);
-            this.allCards[key] = cardObj;
-
-            $(".gameContainer").append(cardObj.createCard());
-
-            cards.splice(rand,1);
+    appendCards(){
+        var cardKeys = Object.keys(allCards.possibleCards);
+        for (var index=0; index<cardKeys.length; index++){
+            var currentCard = allCards.possibleCards[cardKeys[index]];
+            var domElement = currentCard.createCard();
+            $(".gameContainer").append(domElement);
         }
     }
 
-    clickHandler(card) {
-        card.toggleStyle();
-        checkGuess(card);
+
+    checkGuess(){
+        //change card's status to true 
+            //stores card's text, then finds it in the cardsObj
+        //if assassin, calls handle assassin
+        //updates points
+        //updates turn 
+        //returns true in event of corect guess
+        //calls updateFirebase  
+        var cardText = $(this).text();
+        allCards.possibleCards[cardText].status = true;
     }
 
-    checkGuess() {
-        var value = $(this).text();
+    updatePoints(){
+        this.gamePoints[this.currentTurn]++;
+    }
 
-        if (game.allCards[value].type === 'assassin') {
-            console.log('end game');
-            game.handleAssassin();
-
-            game.checkWhoWins();
+    updateTurn(){
+        if (this.currentTurn==="red"){
+            this.currentTurn = "blue";
         } else {
-            game.allCards[value].toggleStyling();
+            this.currentTurn = "red";
         }
-
-        game.allCards[value].status = true;
-
     }
 
-
-    handleAssassin() {
-        $(".guessBox").off('click');
-        $(event.currentTarget).addClass('assassin');
+    handleAssassin(){
+        //ends game
     }
 
-    checkWhoWins() {
-        var winner = null;
-
-        if (game.currentTurn === 'blue') {
-            winner = 'red';
-        } else {
-            winner = 'blue';
-        }
-
-        $(".winner").text(winner + ' wins!');
+    updateFirebase(){
+        //pushes new object up 
     }
+
 }
-
