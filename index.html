@@ -2,12 +2,14 @@
 
 <html>
     <head>
-        <title>Guessing Game</title>
+        <title>Codenames</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
         <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
         <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="allCards.js"></script>
         <script src="card.js"></script>
-        <script src="operatives.js"></script>
+        <script src="player.js"></script>
         <script src="team.js"></script>
         <script src="gameboard.js"></script>
         
@@ -21,16 +23,17 @@
 
     </head>
     <body>
-        <header>Codenames</header>
-        <div class="boardContainer">
+        <div class="top">
+            <header>Codenames</header>
+            <div class="winner"></div>
         </div>
-        <div class="spymasters">Spymaster Key</div>
-        <div class="board forLeaders">
-            <div class="hide"></div>
-            <div class="spymasterKey"></div>
+        <div class="gameContainer">
         </div>
-        <div>
-            <button id="hideButton">Hide/Show</button>
+        <div class="reset">
+            <button id="resetGame">Reset Game</button>
         </div>
     </body>
 </html>
+
+
+

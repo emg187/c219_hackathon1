@@ -1,53 +1,62 @@
 class Gameboard {
-    constructor () {
+    constructor (redOperatives, blueOperatives) {
         this.currentTurn = 'red';
-        // this.teamRed = new Team();
-        // this.teamBlue = new Team();
-        this.red = 0;
-        this.blue = 0;
-        this.assassin = 0;
+        this.teamRed = new Team('red', redOperatives, 1);
+        this.teamBlue = new Team('blue', blueOperatives, 1);
         this.allCards = {};
     }
 
     changeViewOfUser() {
     }
 
-    addCard() {
-        var words = ['Quan', 'Chris', 'Eric'];
-        var word = null;
-        var type = null;
-        console.log(this.currentTurn);
-        // create 25 cards using for loop using card class
-        for (var i=0; i<3; i++) {
-            if (this.red !== 1) {
-                type = 'red';
-                this.red++;
-            } else if (this.blue !== 1) {
-                type = 'blue';
-                this.blue++;
-            } else if (this.assassin !== 1) {
-                type = 'assassin';
-                this.assassin++;
-            }
+    addCard(cards) {
+        for (var i=0; i<25; i++) {
+            var rand = Math.floor(Math.random()*cards.length);
+            var key = cards[rand].word;
+            var value = cards[rand].type;
+            var cardObj = new Card(key, value);
+            this.allCards[key] = cardObj;
 
-            word = words[0];
-            words.shift();
-            var cardObj = new Card(word, type);
-            this.allCards[word] = cardObj;
+            $(".gameContainer").append(cardObj.createCard());
 
-            // append to body of game
-            $(".boardContainer").append(cardObj.createCard());
+            cards.splice(rand,1);
         }
-        // this.cards = card;
-        // call that specific function to updateFirebase();
     }
+
     clickHandler(card) {
         card.toggleStyle();
         checkGuess(card);
     }
+
     checkGuess() {
-        debugger;
-        var key = $(this).text();
-        game.allCards.key.toggleStyling();
+        var value = $(this).text();
+
+        if (game.allCards[value].type === 'assassin') {
+            console.log('end game');
+            game.handleAssassin();
+
+            game.checkWhoWins();
+        } else {
+            game.allCards[value].toggleStyling();
+        }
+    }
+
+
+    handleAssassin() {
+        $(".guessBox").off('click');
+        $(event.currentTarget).addClass('assassin');
+    }
+
+    checkWhoWins() {
+        var winner = null;
+
+        if (game.currentTurn === 'blue') {
+            winner = 'red';
+        } else {
+            winner = 'blue';
+        }
+
+        $(".winner").text(winner + ' wins!');
     }
 }
+
