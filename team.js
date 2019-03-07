@@ -4,7 +4,6 @@ class Team {
         this.players = operatives; //operatives is an object of Player objects, with keys of player names
         this.points = 0; // counts how many correct guesses made
         this.win = winCondition;
-
         var randomPlayer = Math.floor(Math.random()*this.players.length);
         this.spymaster = this.players[randomPlayer];
     }

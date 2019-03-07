@@ -2,14 +2,13 @@ class Card {
     constructor(word, type) {
         this.word = word;
         this.type = type;
-        this.domElement;
     }
 
     createCard(){
-        this.domElement = $("<div>");
-        this.domElement.text(this.word);
-        this.domElement.addClass("guessBox");
-        return this.domElement;
+        var domElement = $("<div>");
+        domElement.text(this.word);
+        domElement.addClass("guessBox");
+        return domElement;
     }
 
     toggleStyling(){
