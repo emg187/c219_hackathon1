@@ -73,14 +73,16 @@ class Gameboard {
     checkGuess() {
         var value = $(this).text();
 
-        if ( game.allCards[value].type === 'assassin') {
+        if (game.allCards[value].type === 'assassin') {
             console.log('end game');
             game.handleAssassin();
+
             game.checkWhoWins();
         } else {
             game.allCards[value].toggleStyling();
         }
     }
+
 
     handleAssassin() {
         $(".guessBox").off('click');
@@ -99,3 +101,4 @@ class Gameboard {
         $(".winner").text(winner + ' wins!');
     }
 }
+

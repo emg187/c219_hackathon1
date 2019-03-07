@@ -2,8 +2,11 @@ $(document).ready(initializeApp);
 
 var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
+//create player objects 
+
+var player;
 var redTeamPlayers = ["Jay", "David", "Westley", "Joe", "Johnny"];
-var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"];
+var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"]; //these ultimately need to be arrays of Player objects
 
 function initializeApp() {
     game = new Gameboard(redTeamPlayers, blueTeamPlayers);
