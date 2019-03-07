@@ -2,6 +2,7 @@ class Card {
     constructor(word, type) {
         this.word = word;
         this.type = type;
+        this.status = false;
     }
 
     createCard(){

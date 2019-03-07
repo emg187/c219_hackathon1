@@ -16,25 +16,21 @@ var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
 var codeNamesDb = null;
 
+
 var player; //create player object everytime the code is run
 var redTeamPlayers = ["Jay", "David", "Westley", "Joe", "Johnny"];
 var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"]; //these ultimately need to be arrays of Player objects
 
 function initializeApp() {
     codeNamesDb = new GenericFBModel('CodeNames Database',uploadCardToDb);
-
     game = new Gameboard(redTeamPlayers, blueTeamPlayers);
-
-    game.addCard(allCards.possibleCards);
-
+    game.addCard(allCards.possibleCards)
     clickHandler();
 
 
-    // var dbRoot = codeNamesDb.db.database();
-    // var cardsRef = dbRoot.child(allCardsObj);
+    // var cardDbRef = 
 
-    // var chrisCard = game.allCards.Chris;
-    // uploadCardToDb(chrisCard);
+
 }
 
 function clickHandler() {
@@ -46,9 +42,13 @@ function clickHandler() {
 
 function uploadCardToDb(card)
 {
-    debugger;
+    var allGameData = {
+        teamPoints : teamPoints,
+        cards : game.allCards,
+        turn: game.currentTurn
+    }
     console.log('saving');
-    codeNamesDb.saveState(game.allCards)     
+    codeNamesDb.saveState(allGameData/*game.allCards*/)     
 }
 
 function resetGame() {
