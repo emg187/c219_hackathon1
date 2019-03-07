@@ -39,6 +39,9 @@ class Gameboard {
         } else {
             game.allCards[value].toggleStyling();
         }
+
+        game.allCards[value].status = true;
+
     }
 
 
