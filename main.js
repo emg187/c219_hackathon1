@@ -2,9 +2,8 @@ $(document).ready(initializeApp);
 
 var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
-//create player objects 
 
-var player;
+var player; //create player object everytime the code is run
 var redTeamPlayers = ["Jay", "David", "Westley", "Joe", "Johnny"];
 var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"]; //these ultimately need to be arrays of Player objects
 
