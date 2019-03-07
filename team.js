@@ -5,8 +5,8 @@ class Team {
         this.points = 0; // counts how many correct guesses made
         this.win = winCondition;
 
-        var randomPlayer = Math.floor(Math.random()*this.ops.length);
-        this.spymaster = this.ops[randomPlayer];
+        var randomPlayer = Math.floor(Math.random()*this.players.length);
+        this.spymaster = this.players[randomPlayer];
     }
 
     adjustTeamPoints() {
