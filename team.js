@@ -1,25 +1,24 @@
 class Team {
-    constructor(color, operatives) {
+    constructor(color, operatives, winCondition) { //winCondition is a number, either 8 or 9
         this.color = color;
-        this.spymaster = spymaster;
-        this.ops = operatives;
+        this.players = operatives; //operatives is an object of Player objects, with keys of player names
         this.points = 0; // counts how many correct guesses made
-    }
+        this.win = winCondition;
 
-    checkWinCondition() {
-    }
-
-    getTeamColor() {
-        return this.color;
-    }
-
-    getTeamPoints () {
-        // return team's points
+        var randomPlayer = Math.floor(Math.random()*this.ops.length);
+        this.spymaster = this.ops[randomPlayer];
     }
 
     adjustTeamPoints() {
         this.points++;
     }
+
+    checkWinCondition(){
+        if (this.points===this.win){
+            //this team wins
+        }
+    }
 }
+    
 
 
