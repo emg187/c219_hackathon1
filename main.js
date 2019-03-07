@@ -29,14 +29,20 @@ function uploadCardToDb(card)
     console.log('saving');
     codeNamesDb.saveState({
         cards: {
-           0 : text,
-           1 : "bye"
+           alice : {
+               type : "blue",
+               word : "alice"
+           },
+           1 : "bye",
+           2 : "test",
+           3 : "blahblah"
+
         },
         word: "David",
         type: "blue",
-        haha: {
-            0: 'yo',
-            1: 'wee'
+        team: {
+            red: 'yo',
+            blue: 'wee'
         }
     })     
 }
