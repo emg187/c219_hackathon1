@@ -6,6 +6,7 @@ class Gameboard {
         this.red = 0;
         this.blue = 0;
         this.assassin = 0;
+        this.civilian = 0;
         this.allCards = {};
     }
 
@@ -13,17 +14,26 @@ class Gameboard {
     }
 
     addCard() {
-        var words = ['Quan', 'Chris', 'Eric'];
+        var words = [
+            'Quan', 'Chris', 'Eric', 'Kenneth', 'Michelle', 'David',
+            'Jay', 'Gormley', 'Jimmy', 'Alice', 'Westley', 'Joe',
+            'Johnny', 'Jennifer Lai', 'Andrew', 'Jaimie', 'Jason',
+            'Jun', 'Caroline', 'Jennifer', 'Vivian', 'Kylier', 
+            'Andy', 'Dan', 'Cody'
+        ];
         var word = null;
         var type = null;
         
-        for (var i=0; i<3; i++) {
-            if (this.red !== 1) {
+        for (var i=0; i<25; i++) {
+            if (this.red !== 9) {
                 type = 'red';
                 this.red++;
-            } else if (this.blue !== 1) {
+            } else if (this.blue !== 8) {
                 type = 'blue';
                 this.blue++;
+            } else if (this.civilian !== 7) {
+                type = 'civilian';
+                this.civilian++;
             } else if (this.assassin !== 1) {
                 type = 'assassin';
                 this.assassin++;
