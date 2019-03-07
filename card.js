@@ -8,34 +8,21 @@ class Card {
         var domElement = $("<div>");
         domElement.text(this.word);
         domElement.addClass("guessBox");
+        domElement.attr("type", this.type);
         return domElement;
     }
 
     toggleStyling(){
-        if (this.type==="civilian"){
-            this.domElement.addClass("civilian");
-            if (game.currentTurn === 'red') {
-                game.currentTurn = 'blue';
-            } else {
-                game.currentTurn = 'red';
-            }
-        } else if (this.type===game.currentTurn){
-            this.domElement.addClass(game.currentTurn);
-            teamPoints[game.currentTurn]++;
-            console.log(teamPoints);
+        if (this.attr("type")==="civilian"){
+            this.addClass("civilian");
         } else {
-            if (game.currentTurn==="red"){
-                this.domElement.addClass("blue");
-                teamPoints['blue']++;
-                game.currentTurn = 'blue';
+            if (this.attr("type")==="red"){
+                this.addClass("red");
             } else {
-                this.domElement.addClass("red");
-                teamPoints['red']++;
-                game.currentTurn = 'red';
+                this.addClass("blue");
             }
         }
     }
-
 }
 
 
