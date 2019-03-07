@@ -1,5 +1,6 @@
 $(document).ready(initializeApp);
 
+var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
 var redTeamPlayers = ["Jay", "David", "Westley", "Joe", "Johnny"];
 var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"];
@@ -19,6 +20,7 @@ function clickHandler() {
 
 function resetGame() {
     $(".gameContainer").empty();
+    $(".winner").empty();
     initializeApp();
 }
 
