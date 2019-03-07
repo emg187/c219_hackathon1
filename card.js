@@ -17,6 +17,10 @@ class Card {
             $(event.currentTarget).addClass("civilian");
         } else {
             if ($(this).attr("type")==="red"){
+        if ($(event.currentTarget).attr("type")==="civilian"){
+            $(event.currentTarget).addClass("civilian");
+        } else {
+            if ($(event.currentTarget).attr("type")==="red"){
                 $(event.currentTarget).addClass("red");
             } else {
                 $(event.currentTarget).addClass("blue");
