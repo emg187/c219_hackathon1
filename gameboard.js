@@ -28,7 +28,9 @@ class Gameboard {
         if (cardObj.type==="assassin"){
             this.handleAssassin();
         } else {
+            var value = $(event.currentTarget).text();
             codeNamesDb.saveState(game);
+            allCards.possibleCards[value].toggleStyling(value);
             return true;
         }
 
@@ -48,10 +50,6 @@ class Gameboard {
 
     handleAssassin(){
         //ends game
-    }
-
-    updateFirebase(){
-        //pushes new object up 
     }
 
 }
