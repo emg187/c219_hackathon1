@@ -43,9 +43,7 @@ class AllCards {
     }
 
     createAssassin() {
-            var randomIndex = Math.floor(Math.random()*this.possibleWords.length);
-            var randomWord = this.possibleWords[randomIndex];
-            this.possibleWords.splice(randomIndex, 1);
+            var randomWord = this.possibleWords[0];
             this.cardObject = new Card(randomWord, "assassin");
             this.possibleCards[randomWord] = this.cardObject;
     }

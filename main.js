@@ -30,25 +30,12 @@ function initializeApp() {
 }
 
 function clickHandler() {
-    $(".guessBox").on('click', checkGuess);
+    $(".guessBox").on('click', game.checkGuess);
     $("#resetGame").on('click', resetGame);
     //pull the firebase object back down 
     //for each loop to update changes 
 }
 
-function checkGuess(){
-    var cardText = $(this).text();
-    var cardObj = allCards.possibleCards[cardText];
-    cardObj.status = true;
-
-    if (cardObj.type==="assassin"){
-        this.handleAssassin();
-    } else {
-        codeNamesDb.saveState(game);
-        return true;
-    }
-
-}
 
 function renderGame(){
     console.log("game board received");
