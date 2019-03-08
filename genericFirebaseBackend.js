@@ -28,21 +28,10 @@ class GenericFBModel {
     handleDataUpdate = (data) => {
         var currentData = JSON.stringify(data.val());
         if(currentData!=this.lastSend){
-            this.callback.call(null,data.val());
+            // this.callback.call(null,data.val());
+            console.log("data value ", data.val());
         }
     }
 
-
-
-    // uploadCardToDb(card)
-    // {
-    //     console.log('saving');
-    //     codeNamesDb.saveState({
-    //         word: card.word,
-    //         type: card.type
-    //     })     
-    // }
-
-    
 }
 
