@@ -1,7 +1,7 @@
 class Gameboard {
     
     constructor(cardsObject, points, currentTurn){
-        this.cards = cardsObject;
+        this.cards = cardsObject.possibleCards;
         this.gamePoints = points;
         this.currentTurn = currentTurn;
 
@@ -9,18 +9,20 @@ class Gameboard {
     }
 
     appendCards(){
-        var cardKeys = Object.keys(this.cards.possibleCards);
-        for (var index=0; index<cardKeys.length; index++){
-            var currentCard = this.cards.possibleCards[cardKeys[index]];
+        var cardKeys = Object.keys(this.cards);
+        while (cardKeys.length){
+            var randomKey = Math.floor(Math.random()*cardKeys.length);
+            var currentCard = this.cards[cardKeys[randomKey]];
             var domElement = currentCard.createCard();
             $(".gameContainer").append(domElement);
+            cardKeys.splice(randomKey, 1);
         }
     }
 
 
     checkGuess(){
         var cardText = $(event.currentTarget).text();
-        var cardObj = this.cards.possibleCards[cardText];
+        var cardObj = this.cards[cardText];
         cardObj.status = true;
 
         if (cardObj.type==="assassin"){
