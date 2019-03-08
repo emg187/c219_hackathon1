@@ -16,10 +16,9 @@ class GenericFBModel {
 
     saveState(newState) {
         
-        if (this.lastSend === null) {
             this.lastSend = JSON.stringify(newState);
-            this.db.database().ref(this.boardName).set(newState);
-        }
+            this.db.database().ref(this.boardName).set(JSON.parse(this.lastSend));
+        
     }
 
     registerListener() {

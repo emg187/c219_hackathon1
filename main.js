@@ -15,13 +15,11 @@ var teamPoints = {'red': 0, 'blue': 0};
 var game = null;
 var codeNamesDb = null;
 
-var player = new Player;
-var redTeamPlayers = ["Jay", "David", "Westley", "Joe", "Johnny"];
-var blueTeamPlayers = ["Kylie", "Jennifer", "Alice", "Andy", "Brett"];
+//var player = new Player;
 
 function initializeApp() {
-    codeNamesDb = new GenericFBModel('CodeNames Database',uploadCardToDb);
-    game = new Gameboard(teamPoints, "red");
+    codeNamesDb = new GenericFBModel('CodeNames Database', renderGame);
+    game = new Gameboard(allCards, teamPoints, "red");
     game.appendCards();
     clickHandler();
 
@@ -32,22 +30,28 @@ function initializeApp() {
 }
 
 function clickHandler() {
-    $(".guessBox").on('click', game.checkGuess);
-
+    $(".guessBox").on('click', checkGuess);
     $("#resetGame").on('click', resetGame);
     //pull the firebase object back down 
     //for each loop to update changes 
 }
 
-function uploadCardToDb(card)
-{
-    var allGameData = {
-        teamPoints : teamPoints,
-        cards : game.allCards,
-        turn: game.currentTurn
+function checkGuess(){
+    var cardText = $(this).text();
+    var cardObj = allCards.possibleCards[cardText];
+    cardObj.status = true;
+
+    if (cardObj.type==="assassin"){
+        this.handleAssassin();
+    } else {
+        codeNamesDb.saveState(game);
+        return true;
     }
-    console.log('saving');
-    codeNamesDb.saveState(allGameData/*game.allCards*/)     
+
+}
+
+function renderGame(){
+    console.log("game board received");
 }
 
 
