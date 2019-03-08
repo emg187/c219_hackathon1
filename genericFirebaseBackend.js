@@ -4,6 +4,7 @@ class GenericFBModel {
         this.db;
         this.callback = changeCallbackFunction;
         this.lastSend = null;
+        this.snapshot = null;
 
         this.start();
     }
@@ -26,11 +27,8 @@ class GenericFBModel {
     }
 
     handleDataUpdate = (data) => {
-        var currentData = JSON.stringify(data.val());
-        if(currentData!=this.lastSend){
-            // this.callback.call(null,data.val());
-            console.log("data value ", data.val());
-        }
+
+        this.callback.call(null, data.val());
     }
 
 }

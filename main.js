@@ -17,7 +17,7 @@ var game = null;
 var codeNamesDb = null;
 
 function initializeApp() {
-    codeNamesDb = new GenericFBModel('CodeNames Database', renderGame);
+    codeNamesDb = new GenericFBModel('/', renderGame);
     game = new Gameboard(allCards, teamPoints, "red");
     codeNamesDb.registerListener();
     game.appendCards();
@@ -30,9 +30,10 @@ function clickHandler() {
 }
 
 
-function renderGame(){
-    console.log("game board received");
-    var downloadedGame = firebase.database.ref().root();
+function renderGame(snapshot){
+    console.log("game board received:", snapshot);
+    game = snapshot;
+    console.log("new game is: ", game);
 }
 
 function resetGame() {
