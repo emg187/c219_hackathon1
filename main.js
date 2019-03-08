@@ -17,7 +17,7 @@ var game = null;
 var codeNamesDb = null;
 
 function initializeApp() {
-    codeNamesDb = new GenericFBModel('CodeNames Database', renderGame);
+    codeNamesDb = new GenericFBModel('/', renderGame);
     game = new Gameboard(allCards, teamPoints, "red");
     codeNamesDb.registerListener();
     game.appendCards();
