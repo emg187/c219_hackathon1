@@ -8,7 +8,9 @@ class Card {
     createCard(){
         var domElement = $("<div>");
         domElement.text(this.word);
-        domElement.addClass("guessBox");
+
+        var classString = "guessBox " +this.word;
+        domElement.addClass(classString);
         return domElement;
     }
 
