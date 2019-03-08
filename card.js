@@ -12,11 +12,12 @@ class Card {
         return domElement;
     }
 
-    toggleStyling(){
-        if ($(event.currentTarget).attr("type")==="civilian"){
+    toggleStyling(value){
+        var ref = value;
+        if (allCards.possibleCards[ref].type==="civilian"){
             $(event.currentTarget).addClass("civilian");
         } else {
-            if ($(event.currentTarget).attr("type")==="red"){
+            if (allCards.possibleCards[ref].type==="red"){
                 $(event.currentTarget).addClass("red");
             } else {
                 $(event.currentTarget).addClass("blue");
