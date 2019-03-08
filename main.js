@@ -17,7 +17,7 @@ var game = null;
 var codeNamesDb = null;
 
 function initializeApp() {
-    codeNamesDb = new GenericFBModel('/', renderGame);
+    codeNamesDb = new GenericFBModel('CodeNames Database', renderGame);
     game = new Gameboard(allCards, teamPoints, "red");
     codeNamesDb.registerListener();
     game.appendCards();
@@ -30,10 +30,30 @@ function clickHandler() {
 }
 
 
-function renderGame(snapshot){
-    console.log("game board received:", snapshot);
-    game = snapshot;
-    console.log("new game is: ", game);
+function renderGame(){
+    var downloadedGame = firebase.database().ref("CodeNames Database");
+    downloadedGame.on("value", function(snapshot){
+        downloadedGame = snapshot.val();
+        debugger;
+        for (var key in downloadedGame.cards){
+            if (downloadedGame.cards[key].status==="true"){
+                var wordClicked = $(event.currentTarget).text();
+                var cardToStyle = $(".gameContainer").find(wordClicked);
+                switch (downloadedGame.cards[key].type){
+                    case "red":
+                        cardToStyle.addClass("red");
+                        break;
+                    case "blue": 
+                        cardToStyle.addClass("blue");
+                        break;
+                    case "civilian":
+                        cardToStyle.addClass("civilian");
+                        break;
+                         
+                }
+            }
+        }
+    });
 }
 
 function resetGame() {
