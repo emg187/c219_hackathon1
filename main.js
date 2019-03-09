@@ -17,9 +17,10 @@ var game = null;
 var codeNamesDb = null;
 
 function initializeApp() {
-    codeNamesDb = new GenericFBModel('CodeNames Database', renderGame);
-    game = new Gameboard(allCards, teamPoints, "red");
+    codeNamesDb = new GenericFBModel('/', renderGame);
     codeNamesDb.registerListener();
+
+    game = new Gameboard(allCards, teamPoints, "red");
     game.appendCards();
     clickHandler();
 }
@@ -30,30 +31,29 @@ function clickHandler() {
 }
 
 
-function renderGame(){
-    var downloadedGame = firebase.database().ref("CodeNames Database");
-    downloadedGame.on("value", function(snapshot){
-        downloadedGame = snapshot.val();
-        debugger;
-        for (var key in downloadedGame.cards){
-            if (downloadedGame.cards[key].status==="true"){
-                var wordClicked = $(event.currentTarget).text();
-                var cardToStyle = $(".gameContainer").find(wordClicked);
-                switch (downloadedGame.cards[key].type){
-                    case "red":
-                        cardToStyle.addClass("red");
-                        break;
-                    case "blue": 
-                        cardToStyle.addClass("blue");
-                        break;
-                    case "civilian":
-                        cardToStyle.addClass("civilian");
-                        break;
-                         
-                }
+function renderGame(databaseObject){
+
+    console.log("change from database");
+    
+    console.log(databaseObject);
+    debugger;
+    for (var key in databaseObject.cards)
+    {
+        if (databaseObject.cards[key].status){  
+            switch (databaseObject.cards[key].type){
+                case "red":
+                    $(`.${key}`).addClass("red");
+                    break;
+                case "blue": 
+                    $(`.${key}`).addClass("blue");
+                    break;
+                case "civilian":
+                    $(`.${key}`).addClass("civilian");
+                    break;
+                        
             }
         }
-    });
+    }
 }
 
 function resetGame() {
