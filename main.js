@@ -5,7 +5,7 @@ var words = [
     'Quan', 'Chris', 'Eric', 'Kenneth', 'Michelle', 'David',
     'Jay', 'Gormley', 'Jimmy', 'Alice', 'Westley', 'Joe',
     'Johnny', 'Jennifer Lai', 'Andrew', 'Jaimie', 'Jason',
-    'Jun', 'Caroline', 'Jennifer', 'Vivian', 'Kylie', 
+    'Jun', 'Caroline', 'Jennifer Ong', 'Vivian', 'Kylie', 
     'Andy', 'Dan', 'Cody'
 ];
 
@@ -23,15 +23,15 @@ function initializeApp() {
 }
 
 function clickHandler() {
-    $(".guessBox").on('click', game.checkGuess);
-    $("#resetGame").on('click', resetGame);
+    $(".guess_box").on('click', game.checkGuess);
+    $("#reset_game").on('click', resetGame);
 }
 
 function renderGame(databaseObject){
     
     for (var key in databaseObject.cards)
     {
-        if (databaseObject.cards[key].status){  
+        if (databaseObject.cards[key].wasClicked){  
             switch (databaseObject.cards[key].type){
                 case "red":
                     $(`.${key}`).addClass("red");
@@ -41,6 +41,9 @@ function renderGame(databaseObject){
                     break;
                 case "civilian":
                     $(`.${key}`).addClass("civilian");
+                    break; 
+                case "assassin":
+                    $(`.${key}`).addClass("assassin");
                     break;       
             }
         }
@@ -50,7 +53,7 @@ function renderGame(databaseObject){
 
 function resetGame() {
     codeNamesDb.saveState(game);
-    $(".gameContainer").empty();
+    $(".game_container").empty();
     $(".winner").empty();
     initializeApp();
 }
