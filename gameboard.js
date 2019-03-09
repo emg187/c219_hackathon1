@@ -14,7 +14,7 @@ class Gameboard {
             var randomKey = Math.floor(Math.random()*cardKeys.length);
             var currentCard = this.cards[cardKeys[randomKey]];
             var domElement = currentCard.createCard();
-            $(".gameContainer").append(domElement);
+            $(".game_container").append(domElement);
             cardKeys.splice(randomKey, 1);
         }
     }
@@ -23,16 +23,13 @@ class Gameboard {
     checkGuess(){
         var cardText = $(event.currentTarget).text();
         var cardObj = this.cards[cardText];
-        cardObj.status = true;
+        cardObj.wasClicked = true;
 
-        if (cardObj.type==="assassin"){
-            this.handleAssassin();
-        } else {
-            var value = $(event.currentTarget).text();
-            codeNamesDb.saveState(game);
-            allCards.possibleCards[value].toggleStyling(value);
-            return true;
-        }
+        var value = $(event.currentTarget).text();
+
+        codeNamesDb.saveState(game);
+
+        allCards.possibleCards[value].toggleStyling(value);
 
     }
 
@@ -46,10 +43,6 @@ class Gameboard {
         } else {
             this.currentTurn = "red";
         }
-    }
-
-    handleAssassin(){
-        //ends game
     }
 
 }
