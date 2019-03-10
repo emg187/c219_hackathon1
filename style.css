@@ -1,5 +1,4 @@
 body {
-    width: 100vw;
     height: 100vh;
     margin: 0;
 }
@@ -17,7 +16,7 @@ header {
     font-family: 'Special Elite', cursive;
 }
 
-.gameContainer {
+.game_container {
     height: 65%;
     display: flex;
     flex-wrap: wrap;
@@ -25,7 +24,7 @@ header {
     padding: 1%;
 }
 
-.guessBox {
+.guess_box {
     height: 19%;
     width: 19%;
     font-size: 20px;
@@ -61,7 +60,7 @@ header {
     margin: auto;
 }
 
-#reset {
+#reset_game {
     margin: 0;
     width: 100px;
 }
