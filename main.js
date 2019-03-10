@@ -43,24 +43,24 @@ function clickHandler() {
 }
 
 function renderGame(databaseObject) {
-    game.userName = localStorage.getItem('userName');
+    // game.userName = localStorage.getItem('userName');
 
-    databaseObject.userName = game.userName;
+    // databaseObject.userName = game.userName;
 
-    if (!game.userName) {
-        game.userName = 'user-' + Math.floor((Math.random() * 999999));
-        localStorage.setItem('userName', game.userName);
-    }
+    // if (!game.userName) {
+    //     game.userName = 'user-' + Math.floor((Math.random() * 999999));
+    //     localStorage.setItem('userName', game.userName);
+    // }
 
-    databaseObject.userName = game.userName;
-    console.log(databaseObject);
-    console.log('userName is: ' + game.userName);
+    // databaseObject.userName = game.userName;
+    // console.log(databaseObject);
+    // console.log('userName is: ' + game.userName);
 
-    if (databaseObject.userName === null || game.userName !== databaseObject.userName) {
-        resetGame();
-    } else {
-        renderGame();
-    }
+    // if (databaseObject.userName === null || game.userName !== databaseObject.userName) {
+    //     resetGame();
+    // } else {
+    //     renderGame();
+    // }
     console.log("renderGame called");
     for (var key in databaseObject.cards) {
         if (databaseObject.cards[key].wasClicked) {
@@ -73,7 +73,7 @@ function renderGame(databaseObject) {
                     break;
                 case "civilian":
                     $(`.${key}`).addClass("civilian");
-                    break; 
+                    break;
                 case "assassin":
                     $(`.${key}`).addClass("assassin");
                     break;
@@ -102,7 +102,7 @@ function resetGame() {
 function toggleColors() {
     for (var key in deck.possibleCards) {
         var type = deck.possibleCards[key].type;
-        var divSelected = $(".game_container").find('.'+key);
+        var divSelected = $(".game_container").find('.' + key);
         if (game.revealCardsForSpymaster === false) {
             $(divSelected).addClass(type);
         } else {
