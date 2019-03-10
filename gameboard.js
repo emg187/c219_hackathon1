@@ -1,6 +1,6 @@
 class Gameboard {
-    
-    constructor(cardsObject, points, currentTurn){
+
+    constructor(cardsObject, points, currentTurn) {
         this.cards = cardsObject.possibleCards;
         this.gamePoints = points;
         this.currentTurn = currentTurn;
@@ -8,10 +8,10 @@ class Gameboard {
         this.checkGuess = this.checkGuess.bind(this);
     }
 
-    appendCards(){
+    appendCards() {
         var cardKeys = Object.keys(this.cards);
-        while (cardKeys.length){
-            var randomKey = Math.floor(Math.random()*cardKeys.length);
+        while (cardKeys.length) {
+            var randomKey = Math.floor(Math.random() * cardKeys.length);
             var currentCard = this.cards[cardKeys[randomKey]];
             var domElement = currentCard.createCard();
             $(".game_container").append(domElement);
@@ -20,7 +20,7 @@ class Gameboard {
     }
 
 
-    checkGuess(){
+    checkGuess() {
         var cardText = $(event.currentTarget).text();
         var cardObj = this.cards[cardText];
         cardObj.wasClicked = true;
@@ -29,21 +29,21 @@ class Gameboard {
 
         codeNamesDb.saveState(game);
 
-        allCards.possibleCards[value].toggleStyling(value);
+        deck.possibleCards[value].toggleStyling(value);
 
     }
 
-    updatePoints(){
+    updatePoints() {
         this.gamePoints[this.currentTurn]++;
     }
 
-    updateTurn(){
-        if (this.currentTurn==="red"){
+    updateTurn() {
+        if (this.currentTurn === "red") {
             this.currentTurn = "blue";
         } else {
             this.currentTurn = "red";
         }
     }
-  
+
 
 }
