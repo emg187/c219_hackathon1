@@ -27,4 +27,8 @@ class Card {
             }
         }
     }
+
+    returnType(value) {
+        return deck.possibleCards[value].type
+    }
 }
