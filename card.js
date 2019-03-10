@@ -1,33 +1,30 @@
 class Card {
-
     constructor(word, type) {
         this.word = word;
         this.type = type;
-        this.domElement;
+        this.wasClicked = false;
     }
 
-    createCard(){
-        this.domElement = $("<div>");
-        this.domElement.text(word);
-        this.domElement.addClass("guessBox");
-        this.domElement.attr("type", this.type);
-        return this.domElement;
+    createCard() {
+        var domElement = $("<div>");
+        domElement.text(this.word);
+
+        var classString = "guess_box " + this.word;
+        domElement.addClass(classString);
+        return domElement;
     }
 
-    toggleStyling(){
-        if (this.type==="civilian"){
-            this.domElement.addClass("civilian");    
-        } else if (this.type===game.currentTurn){
-            this.addClass(game.currentTurn);
+    toggleStyling(value) {
+        if (deck.possibleCards[value].type === "civilian") {
+            $(event.currentTarget).addClass("civilian");
+        } else if (deck.possibleCards[value].type === "assassin") {
+            $(event.currentTarget).addClass("assassin");
         } else {
-            if (game.currentTurn==="red"){
-                this.domElement.addClass("blue");
+            if (deck.possibleCards[value].type === "red") {
+                $(event.currentTarget).addClass("red");
             } else {
-                this.domElement.addClass("red");
+                $(event.currentTarget).addClass("blue");
             }
         }
     }
-
 }
-
-

@@ -1,15 +1,13 @@
-class Spymaster {
-    constructor() {
-        this.wordClue = null;
-        this.numberClue = null;
-        this.key = null;
+class Player {
+    constructor(){
+        
     }
 
-    pickOpponentCard() {
+    pickOpponentCard(){
 
     }
 
-    clickHandler() {
+    clickHandler(){
         // when submit button clicked, set this.wordClue and this.numberClue;
     }
 }
