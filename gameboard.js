@@ -47,6 +47,7 @@ class Gameboard {
             this.currentTurn = "red";
         }
     }
+  
 
     handleAssassin(){
         //ends game

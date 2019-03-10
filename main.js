@@ -14,11 +14,15 @@ allCards.createAllCards();
 var teamPoints = {'red': 0, 'blue': 0};
 
 var game = null;
-codeNamesDb = new GenericFBModel('/', renderGame);
+var codeNamesDb = new GenericFBModel('/', renderGame);
+
+
+//codeNamesDb.db.database().ref(codeNamesDb.boardName).once("value", renderGame);
 
 function initializeApp() {
     game = new Gameboard(allCards, teamPoints, "red");
     game.appendCards();
+
     clickHandler();
 }
 
@@ -28,7 +32,7 @@ function clickHandler() {
 }
 
 function renderGame(databaseObject){
-    
+    console.log("renderGame called");
     for (var key in databaseObject.cards)
     {
         if (databaseObject.cards[key].status){  
@@ -44,14 +48,26 @@ function renderGame(databaseObject){
                     break;       
             }
         }
+        else
+        {
+            $(`.${key}`).removeClass("red");
+            $(`.${key}`).removeClass("blue");
+            $(`.${key}`).removeClass("civilian");
+        }
+        
     }
 
 }
 
 function resetGame() {
-    codeNamesDb.saveState(game);
+    for(var key in allCards.possibleCards)
+    {
+        allCards.possibleCards[key].status = false;
+    }
     $(".gameContainer").empty();
     $(".winner").empty();
-    initializeApp();
+    
+    game.appendCards();
+    clickHandler();
+    codeNamesDb.saveState(game);
 }
-
