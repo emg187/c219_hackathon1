@@ -26,6 +26,8 @@ class Gameboard {
 
         var value = $(event.currentTarget).text();
 
+        debugger;
+
         codeNamesDb.saveState(game);
 
         deck.possibleCards[value].toggleStyling(value);

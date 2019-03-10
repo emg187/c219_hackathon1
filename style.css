@@ -1,3 +1,12 @@
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.top {
+    height: 20%;
+}
+
 header {
     text-align: center;
     text-transform: uppercase;
