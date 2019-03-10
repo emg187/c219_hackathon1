@@ -56,6 +56,7 @@ function renderGame(databaseObject){
             $(`.${key}`).removeClass("red");
             $(`.${key}`).removeClass("blue");
             $(`.${key}`).removeClass("civilian");
+            $(`.${key}`).removeClass("assassin");
         }
         
     }
@@ -63,14 +64,12 @@ function renderGame(databaseObject){
 }
 
 function resetGame() {
-
     for(var key in allCards.possibleCards)
     {
-        allCards.possibleCards[key].status = false;
+        allCards.possibleCards[key].wasClicked = false;
     }
     $(".gameContainer").empty();
     $(".winner").empty();
-    game.appendCards();
     clickHandler();
     codeNamesDb.saveState(game);
 }
