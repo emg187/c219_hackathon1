@@ -75,14 +75,6 @@ function renderGame(databaseObject) {
                     break; 
                 case "assassin":
                     $(`.${key}`).addClass("assassin");
-                    break;       
-            }
-        }
-        else
-        {
-                    break;
-                case "assassin":
-                    $(`.${key}`).addClass("assassin");
                     break;
             }
         }
