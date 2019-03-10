@@ -17,7 +17,11 @@ var game = null;
 var codeNamesDb = new GenericFBModel('/', renderGame);
 
 
-//codeNamesDb.db.database().ref(codeNamesDb.boardName).once("value", renderGame);
+codeNamesDb.db.database().ref('/cards').once("value", function(snapshot){
+    console.log('Get Cards:', snapshot.val());
+
+    game = snapshot.val();
+});
 
 function initializeApp() {
     game = new Gameboard(allCards, teamPoints, "red");
