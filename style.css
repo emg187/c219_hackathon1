@@ -10,12 +10,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 header {
     text-align: center;
-    font-size: 50px;
+    font-size: 5rem;
     letter-spacing: 5px;
+}
+
+.winner {
+    height: 20%;
+    font-size: 3rem;
 }
 
 .game_container {

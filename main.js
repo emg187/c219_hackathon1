@@ -30,6 +30,10 @@ codeNamesDb.db.database().ref('/currentTurn').once("value", function (snapshot) 
 
 function initializeApp() {
     game = new Gameboard(deck, teamPoints, "red");
+    $(".team_points").text(
+        'Red: ' + teamPoints.red+ 
+        ', Blue: ' + teamPoints.blue
+    );
     // game = new Gameboard(dbCards, dbTeamPoints, dbTurn);
     game.appendCards();
 
@@ -100,12 +104,13 @@ function resetGame() {
 }
 
 function toggleColors() {
+    console.log('revealed is: '+game.revealCardsForSpymaster);
     for (var key in deck.possibleCards) {
         var type = deck.possibleCards[key].type;
         var divSelected = $(".game_container").find('.'+key);
         if (game.revealCardsForSpymaster === false) {
             $(divSelected).addClass(type);
-        } else {
+        } else if (game.revealCardsForSpymaster === true && deck.possibleCards[key].wasClicked === false) {
             $(divSelected).removeClass(type);
         }
     }

@@ -36,28 +36,20 @@ class Gameboard {
             game.handleAssassin();
         }
 
+        $(".team_points").empty().text(
+            'Red: ' + teamPoints.red+ 
+            ', Blue: ' + teamPoints.blue
+        );
+
         codeNamesDb.saveState(game);
     }
 
+    //fix this shit
     updatePoints(type) {
         if (type === 'red') {
-            if (game.currentTurn === 'red') {
-                teamPoints.red+=1;
-            } else {
-                teamPoints.blue+=1;
-            }
+            teamPoints.red+=1;
         } else if (type === 'blue') {
-            if (game.currentTurn === 'blue') {
-                teamPoints.blue+=1;
-            } else {
-                teamPoints.red+=1;
-            }
-        } else if (type === 'civilian') {
-            if (game.currentTurn === 'red') {
-                game.currentTurn = 'blue';
-            } else {
-                game.currentTurn = 'red';
-            }
+            teamPoints.blue+=1;
         }
     }
 
@@ -85,6 +77,8 @@ class Gameboard {
         } else {
             game.winner = 'red';
         }
+
+        $(".winner").text(game.winner + ' team wins!');
 
         $(".guess_box").off('click');
     }
