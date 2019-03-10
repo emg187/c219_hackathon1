@@ -39,6 +39,7 @@ function initializeApp() {
 function clickHandler() {
     $(".guess_box").on('click', game.checkGuess);
     $("#reset_game").on('click', resetGame);
+    $("#spymasterButton").on('click', toggleColors);
 }
 
 function renderGame(databaseObject) {
@@ -96,4 +97,22 @@ function resetGame() {
 
     clickHandler();
     codeNamesDb.saveState(game);
+}
+
+function toggleColors() {
+    for (var key in deck.possibleCards) {
+        var type = deck.possibleCards[key].type;
+        var divSelected = $(".game_container").find('.'+key);
+        if (game.revealCardsForSpymaster === false) {
+            $(divSelected).addClass(type);
+        } else {
+            $(divSelected).removeClass(type);
+        }
+    }
+
+    if (game.revealCardsForSpymaster === false) {
+        game.revealCardsForSpymaster = true;
+    } else {
+        game.revealCardsForSpymaster = false;
+    }
 }
