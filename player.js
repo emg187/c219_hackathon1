@@ -11,4 +11,3 @@ class Player {
         // when submit button clicked, set this.wordClue and this.numberClue;
     }
 }
-

@@ -1,5 +1,4 @@
 class Gameboard {
-
     constructor(cardsObject, points, currentTurn) {
         this.cards = cardsObject.possibleCards;
         this.gamePoints = points;

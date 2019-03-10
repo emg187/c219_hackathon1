@@ -42,6 +42,24 @@ function clickHandler() {
 }
 
 function renderGame(databaseObject) {
+    game.userName = localStorage.getItem('userName');
+
+    databaseObject.userName = game.userName;
+
+    if (!game.userName) {
+        game.userName = 'user-' + Math.floor((Math.random() * 999999));
+        localStorage.setItem('userName', game.userName);
+    }
+
+    databaseObject.userName = game.userName;
+    console.log(databaseObject);
+    console.log('userName is: ' + game.userName);
+
+    if (databaseObject.userName === null || game.userName !== databaseObject.userName) {
+        resetGame();
+    } else {
+        renderGame();
+    }
     console.log("renderGame called");
     for (var key in databaseObject.cards) {
         if (databaseObject.cards[key].wasClicked) {
@@ -54,6 +72,14 @@ function renderGame(databaseObject) {
                     break;
                 case "civilian":
                     $(`.${key}`).addClass("civilian");
+                    break; 
+                case "assassin":
+                    $(`.${key}`).addClass("assassin");
+                    break;       
+            }
+        }
+        else
+        {
                     break;
                 case "assassin":
                     $(`.${key}`).addClass("assassin");
@@ -66,9 +92,7 @@ function renderGame(databaseObject) {
             $(`.${key}`).removeClass("civilian");
             $(`.${key}`).removeClass("assassin");
         }
-
     }
-
 }
 
 function resetGame() {
@@ -77,7 +101,7 @@ function resetGame() {
     }
     $(".gameContainer").empty();
     $(".winner").empty();
+
     clickHandler();
     codeNamesDb.saveState(game);
 }
-
