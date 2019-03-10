@@ -17,14 +17,29 @@ var game = null;
 var codeNamesDb = new GenericFBModel('/', renderGame);
 
 
+var dbCards = null; 
+var dbTeamPoints = null;
+var dbTurn = "";
+
 codeNamesDb.db.database().ref('/cards').once("value", function(snapshot){
     console.log('Get Cards:', snapshot.val());
-
-    game = snapshot.val();
+    dbCards = snapshot.val();
 });
 
+codeNamesDb.db.database().ref('/gamePoints').once("value", function(snapshot){
+    console.log('Get teamPoints:', snapshot.val());
+    dbTeamPoints = snapshot.val();
+});
+
+codeNamesDb.db.database().ref('/currentTurn').once("value", function(snapshot){
+    console.log('Get currentTurn:', snapshot.val());
+    dbTurn = snapshot.val();
+});
+
+game = new Gameboard(dbCards, teamPoints, dbTurn);
+
 function initializeApp() {
-    game = new Gameboard(allCards, teamPoints, "red");
+    
     game.appendCards();
 
     clickHandler();
@@ -77,3 +92,4 @@ function resetGame() {
     clickHandler();
     codeNamesDb.saveState(game);
 }
+
