@@ -47,12 +47,8 @@ class Gameboard {
     }
 
     checkGuess() {
-        
-        // if wrong
-        //     Gameboard.currentTurn change
-        // else if right
-        //     team.points++
-        // else if assassin
-        //     game over
+        debugger;
+        var key = $(this).text();
+        game.allCards.key.toggleStyling();
     }
 }
