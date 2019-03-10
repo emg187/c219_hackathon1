@@ -27,14 +27,27 @@ codeNamesDb.db.database().ref('/currentTurn').once("value", function (snapshot) 
     dbTurn = snapshot.val();
 });
 
-
 function initializeApp() {
-    game = new Gameboard(deck, teamPoints, "red");
+    var user = localStorage.getItem('userName');
+    debugger;
+    codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
+        game = new Gameboard(deck, teamPoints, "red");
+        codeNamesDb.saveState(game);
+     });
+
+    console.log(user);
+    console.log(game.users);
+
+    codeNamesDb.saveState(game);
+
+    if (user === game.users[0]) {
+        codeNamesDb.saveState(game);
+    }
+
     $(".team_points").text(
         'Red: ' + teamPoints.red+ 
         ', Blue: ' + teamPoints.blue
     );
-    // game = new Gameboard(dbCards, dbTeamPoints, dbTurn);
     game.appendCards();
 
     clickHandler();
@@ -47,24 +60,21 @@ function clickHandler() {
 }
 
 function renderGame(databaseObject) {
-    game.userName = localStorage.getItem('userName');
 
-    databaseObject.userName = game.userName;
+    // if (!game.userName) {
+    //     game.userName = 'user-' + Math.floor((Math.random() * 999999));
+    //     localStorage.setItem('userName', game.userName);
+    // }
 
-    if (!game.userName) {
-        game.userName = 'user-' + Math.floor((Math.random() * 999999));
-        localStorage.setItem('userName', game.userName);
-    }
+    // databaseObject.userName = game.userName;
+    // console.log(databaseObject);
+    // console.log('userName is: ' + game.userName);
 
-    databaseObject.userName = game.userName;
-    console.log(databaseObject);
-    console.log('userName is: ' + game.userName);
-
-    if (databaseObject.userName === null || game.userName !== databaseObject.userName) {
-        resetGame();
-    } else {
-        renderGame();
-    }
+    // if (databaseObject.userName === null || game.userName !== databaseObject.userName) {
+    //     resetGame();
+    // } else {
+    //     renderGame();
+    // }
     console.log("renderGame called");
     for (var key in databaseObject.cards) {
         if (databaseObject.cards[key].wasClicked) {
