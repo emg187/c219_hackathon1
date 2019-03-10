@@ -16,7 +16,6 @@ class GenericFBModel {
     }
 
     saveState(newState) {
-        
         this.lastSend = JSON.stringify(newState);
         this.db.database().ref(this.boardName).set(JSON.parse(this.lastSend));        
     }
@@ -26,7 +25,6 @@ class GenericFBModel {
     }
 
     handleDataUpdate = (data) => {
-
         this.callback.call(null, data.val());
     }
 

@@ -4,6 +4,7 @@ class Gameboard {
         this.gamePoints = points;
         this.currentTurn = currentTurn;
         this.revealCardsForSpymaster = false;
+        this.users = [];
 
         this.checkGuess = this.checkGuess.bind(this);
     }
