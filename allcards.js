@@ -9,7 +9,7 @@ class AllCards {
             'BOTTLE', 'FORCE', 'CELL'
         ];
         this.cardObject;
-
+        
         this.createAllCards();
     }
 
@@ -25,6 +25,7 @@ class AllCards {
             var randomIndex = Math.floor(Math.random() * this.possibleWords.length);
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
+            debugger;
             this.cardObject = new Card(randomWord, "red");
             this.possibleCards[randomWord] = this.cardObject;
         }

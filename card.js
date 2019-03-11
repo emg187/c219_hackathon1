@@ -3,6 +3,7 @@ class Card {
         this.word = word;
         this.type = type;
         this.wasClicked = false;
+        this.position = null;
     }
 
     createCard() {
@@ -16,14 +17,14 @@ class Card {
 
     toggleStyling(value) {
         if (deck.possibleCards[value].type === "civilian") {
-            $(event.currentTarget).addClass("civilian");
+            $(event.target).addClass("civilian");
         } else if (deck.possibleCards[value].type === "assassin") {
-            $(event.currentTarget).addClass("assassin");
+            $(event.target).addClass("assassin");
         } else {
             if (deck.possibleCards[value].type === "red") {
-                $(event.currentTarget).addClass("red");
+                $(event.target).addClass("red");
             } else {
-                $(event.currentTarget).addClass("blue");
+                $(event.target).addClass("blue");
             }
         }
     }

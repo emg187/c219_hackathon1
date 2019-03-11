@@ -37,7 +37,7 @@ function initializeApp() {
 }
 
 function clickHandler() {
-    $(".guess_box").on('click', game.checkGuess);
+    $(".game_container").on('click', '.guess_box', game.checkGuess);
     $("#reset_game").on('click', resetGame);
     $("#spymasterButton").on('click', toggleColors);
 }
@@ -88,24 +88,26 @@ function renderGame(databaseObject) {
     }
 }
 
-function resetGame() {
-    for (var key in deck.possibleCards) {
-        deck.possibleCards[key].wasClicked = false;
-    }
-    $(".gameContainer").empty();
-    $(".winner").empty();
+// function resetGame() {
+//     for (var key in deck.possibleCards) {
+//         deck.possibleCards[key].wasClicked = false;
+//     }
+//     $(".gameContainer").empty();
+//     $(".winner").empty();
 
-    clickHandler();
-    codeNamesDb.saveState(game);
-}
+//     clickHandler();
+//     codeNamesDb.saveState(game);
+    
+// }
 
 function toggleColors() {
-    for (var key in deck.possibleCards) {
-        var type = deck.possibleCards[key].type;
-        var divSelected = $(".game_container").find('.' + key);
+    console.log('revealed is: '+game.revealCardsForSpymaster);
+    for (var key in game.cards) {
+        var type = game.cards[key].type;
+        var divSelected = $(".game_container").find('.'+game.cards[key].word);
         if (game.revealCardsForSpymaster === false) {
             $(divSelected).addClass(type);
-        } else {
+        } else if (game.revealCardsForSpymaster === true && game.cards[key].wasClicked === false) {
             $(divSelected).removeClass(type);
         }
     }
@@ -115,4 +117,15 @@ function toggleColors() {
     } else {
         game.revealCardsForSpymaster = false;
     }
+}
+
+function resetGame() {
+    $(".game_container").empty();
+    $(".winner").empty();
+
+    deck = new AllCards();
+    game = new Gameboard(deck, 'red');
+    game.appendCards();
+    codeNamesDb.saveState(game);
+    clickHandler();
 }

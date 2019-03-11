@@ -4,6 +4,7 @@ class Gameboard {
         this.gamePoints = points;
         this.currentTurn = currentTurn;
         this.revealCardsForSpymaster = false;
+        this.position = 0;
 
         this.checkGuess = this.checkGuess.bind(this);
     }
@@ -13,16 +14,18 @@ class Gameboard {
         while (cardKeys.length) {
             var randomKey = Math.floor(Math.random() * cardKeys.length);
             var currentCard = this.cards[cardKeys[randomKey]];
+            this.cards[cardKeys[randomKey]].position = this.position;
             var domElement = currentCard.createCard();
             $(".game_container").append(domElement);
             cardKeys.splice(randomKey, 1);
+            this.position++;
         }
     }
 
     checkGuess() {
-        var cardText = $(event.currentTarget).text();
+        var cardText = $(event.target).text();
         var cardObj = this.cards[cardText];
-        var value = $(event.currentTarget).text();
+        var value = $(event.target).text();
         var type = deck.possibleCards[value].returnType(value);
 
         cardObj.wasClicked = true;
