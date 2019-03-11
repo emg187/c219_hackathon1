@@ -3,33 +3,40 @@ $(document).ready(initializeApp);
 
 var deck = new AllCards();
 var teamPoints = { 'red': 0, 'blue': 0 };
-var game = null;
 var gameSet = false;
-var codeNamesDb = new GenericFBModel('codenames', renderGame);
+var game = null;
+var codeNamesDb = null;
 
-codeNamesDb.saveState(game);
+var codeNamesDb = new GenericFBModel('codenames');
 
 var user = localStorage.getItem('userName');
 
 function initializeApp() {
-
     var ref = firebase.database().ref('/codenames');
     ref.once('value').then(function(snapshot) {
         var gameDb = snapshot.val();
         if (gameDb === null) {
             game = new Gameboard(deck, "red");
             game.appendCards();
-            codeNamesDb.saveState(game);
             gameSet = true;
             $(".guess_box").on('click', game.checkGuess);
+            codeNamesDb.saveState(game);
+        } else {
+            for (var i=0; i<25; i++) {
+                var domElement = $("<div>").text(gameDb.appendedCards[i].word);
+                var classString = "guess_box " + gameDb.appendedCards[i].word;
+                domElement.addClass(classString);
+                $(".game_container").append(domElement);
+            }
         }
+        codeNamesDb.saveState(game);
     });
 
     $(".team_points").text(
         'Red: ' + teamPoints.red+ 
         ', Blue: ' + teamPoints.blue
     );
-
+    
     clickHandler();
 }
 
@@ -39,8 +46,24 @@ function clickHandler() {
 }
 
 function renderGame() {
+    // console.log('render game is called');
 
-    console.log('render game is called');
+    // var ref = firebase.database().ref('/codenames');
+    // ref.once('value').then(function(snapshot) {
+    //     debugger;
+    //     if (game === null && snapshot.val() === null) {
+            // for (var i=0; i<25; i++) {
+            //     debugger;
+            //     var currentCard = game.cards[i];
+            //     var domElement = $("<div>").text(this.word);
+
+            //     var classString = "guess_box " + this.word;
+            //     domElement.addClass(classString);
+            //     $(".game_container").append(domElement);
+            //     return domElement;
+            // }
+    //     }
+    // });
 
     // game = new Gameboard(deck, "red");
 
