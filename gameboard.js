@@ -3,38 +3,49 @@ class Gameboard {
         this.cards = deck.cardArray;
         this.currentTurn = currentTurn;
         this.revealCardsForSpymaster = false;
-        this.appendedCards = [];
+        this.position = 0;
 
         this.checkGuess = this.checkGuess.bind(this);
     }
 
     appendCards() {
-        for (var i=0; i<25; i++) {
-            var randomKey = Math.floor(Math.random() * this.cards.length);
-            var currentCard = this.cards[randomKey];
+        var cardKeys = Object.keys(this.cards);
+        while (cardKeys.length) {
+            var randomKey = Math.floor(Math.random() * cardKeys.length);
+            var currentCard = this.cards[cardKeys[randomKey]];
+            this.cards[cardKeys[randomKey]].position = this.position;
             var domElement = currentCard.createCard();
             $(".game_container").append(domElement);
-            var hold = this.cards.splice(randomKey, 1)
-            this.appendedCards.push(hold[0]);
+            cardKeys.splice(randomKey, 1);
+            this.position++;
         }
+
+        // while (this.position<25) {
+        //     for (var key in this.cards) {
+        //         console.log(key);
+        //         if (this.cards.position === this.position) {
+        //             var randomKey = Math.floor(Math.random() * cardKeys.length);
+        //             var currentCard = this.cards[cardKeys[randomKey]];
+        //             this.cards[cardKeys[randomKey]].position = this.position;
+        //             var domElement = currentCard.createCard();
+        //             $(".game_container").append(domElement);
+        //             cardKeys.splice(randomKey, 1);
+        //             this.position++;
+        //             break;
+        //         }
+        //     }
+        // }
     }
 
     checkGuess() {
-        var value = $(event.currentTarget).text();
+        var cardText = $(event.target).text();
+        var cardObj = this.cards[cardText];
+        var value = $(event.target).text();
+        var type = deck.possibleCards[value].type;
 
-        var cardIndex = null;
-
-        for (var i=0; i<25; i++) {
-            if (this.appendedCards[i].word === value) {
-                this.appendedCards[i].wasClicked = true;
-                cardIndex = i;
-                break;
-            }
-        }
-
-        var type = this.appendedCards[cardIndex].type;
-
-        this.appendedCards[cardIndex].toggleStyling(cardIndex);
+        cardObj.wasClicked = true;
+        deck.possibleCards[value].wasClicked = true;
+        game.cards = deck.possibleCards;
 
         this.updatePoints(type);
         this.updateTurn(type);
@@ -57,6 +68,10 @@ class Gameboard {
         } else if (type === 'blue') {
             teamPoints.blue+=1;
         }
+
+        $(".team_points").empty();
+
+        $(".team_points").text('Red: '+teamPoints.red +', Blue: '+teamPoints.blue);
     }
 
     updateTurn(type) {

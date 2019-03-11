@@ -3,6 +3,7 @@ class Card {
         this.word = word;
         this.type = type;
         this.wasClicked = false;
+        this.position = null;
     }
 
     createCard() {
@@ -14,16 +15,16 @@ class Card {
         return domElement;
     }
 
-    toggleStyling(cardIndex) {
-        if (game.appendedCards[cardIndex].type === "civilian") {
-            $(event.currentTarget).addClass("civilian");
-        } else if (game.appendedCards[cardIndex].type === "assassin") {
-            $(event.currentTarget).addClass("assassin");
+    toggleStyling(value) {
+        if (deck.possibleCards[value].type === "civilian") {
+            $(event.target).addClass("civilian");
+        } else if (deck.possibleCards[value].type === "assassin") {
+            $(event.target).addClass("assassin");
         } else {
-            if (game.appendedCards[cardIndex].type === "red") {
-                $(event.currentTarget).addClass("red");
+            if (deck.possibleCards[value].type === "red") {
+                $(event.target).addClass("red");
             } else {
-                $(event.currentTarget).addClass("blue");
+                $(event.target).addClass("blue");
             }
         }
     }

@@ -7,7 +7,7 @@
 //     storageBucket: "codenames-mine.appspot.com",
 //     messagingSenderId: "950054246786"
 // };
- 
+
 
 var firebaseConfig = {
     apiKey: 'AIzaSyBR11vt14ucQep2QHb5N2MDjcOC-qNfoTs',
