@@ -1,7 +1,6 @@
 class Gameboard {
-    constructor(cardsObject, points, currentTurn) {
-        this.cards = cardsObject.possibleCards;
-        this.gamePoints = points;
+    constructor(deck, currentTurn) {
+        this.cards = deck.cardArray;
         this.currentTurn = currentTurn;
         this.revealCardsForSpymaster = false;
         this.position = 0;
@@ -28,9 +27,19 @@ class Gameboard {
         var value = $(event.target).text();
         var type = deck.possibleCards[value].returnType(value);
 
-        cardObj.wasClicked = true;
+        var cardIndex = null;
 
-        deck.possibleCards[value].toggleStyling(value);
+        for (var i=0; i<25; i++) {
+            if (this.appendedCards[i].word === value) {
+                this.appendedCards[i].wasClicked = true;
+                cardIndex = i;
+                break;
+            }
+        }
+
+        var type = this.appendedCards[cardIndex].type;
+
+        this.appendedCards[cardIndex].toggleStyling(cardIndex);
 
         this.updatePoints(type);
         this.updateTurn(type);
@@ -39,28 +48,19 @@ class Gameboard {
             game.handleAssassin();
         }
 
-        codeNamesDb.saveState(game);
+        $(".team_points").empty().text(
+            'Red: ' + teamPoints.red+ 
+            ', Blue: ' + teamPoints.blue
+        );
+
+        codeNamesDb.saveState(this);
     }
 
     updatePoints(type) {
         if (type === 'red') {
-            if (game.currentTurn === 'red') {
-                teamPoints.red+=1;
-            } else {
-                teamPoints.blue+=1;
-            }
+            teamPoints.red+=1;
         } else if (type === 'blue') {
-            if (game.currentTurn === 'blue') {
-                teamPoints.blue+=1;
-            } else {
-                teamPoints.red+=1;
-            }
-        } else if (type === 'civilian') {
-            if (game.currentTurn === 'red') {
-                game.currentTurn = 'blue';
-            } else {
-                game.currentTurn = 'red';
-            }
+            teamPoints.blue+=1;
         }
     }
 
@@ -88,6 +88,8 @@ class Gameboard {
         } else {
             game.winner = 'red';
         }
+
+        $(".winner").text(game.winner + ' team wins!');
 
         $(".guess_box").off('click');
     }
