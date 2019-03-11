@@ -8,10 +8,11 @@ var game = null;
 var gameSet = false;
 var codeNamesDb = new GenericFBModel('codenames', renderGame);
 
+codeNamesDb.saveState(game);
+
 var user = localStorage.getItem('userName');
 
 function initializeApp() {
-    game = new Gameboard(deck, "red");
     codeNamesDb.saveState(game);
 
     $(".team_points").text(
@@ -28,6 +29,20 @@ function clickHandler() {
 }
 
 function renderGame() {
+    debugger;
+
+    game = new Gameboard(deck, "red");
+
+    codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
+        var gameDb = snapshot.val();
+        if (gameDb === null) {
+            game = new Gameboard(deck, "red");
+        }
+    });
+
+    // codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
+    //     ----create board here----
+    //  });
     var ref = firebase.database().ref('/codenames');
     ref.once('value').then(function(snapshot) {
         if (gameSet === false) {
@@ -66,8 +81,8 @@ function renderGame() {
 }
 
 function resetGame() {
-    for (var key in deck.possibleCards) {
-        deck.possibleCards[key].wasClicked = false;
+    for (var key in deck.cardArray) {
+        deck.randomizedCards[key].wasClicked = false;
     }
     $(".gameContainer").empty();
     $(".winner").empty();
