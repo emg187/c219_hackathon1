@@ -3,7 +3,6 @@ $(document).ready(initializeApp);
 
 var deck = new AllCards();
 var teamPoints = { 'red': 0, 'blue': 0 };
-
 var game = null;
 var gameSet = false;
 var codeNamesDb = new GenericFBModel('codenames', renderGame);
@@ -13,7 +12,18 @@ codeNamesDb.saveState(game);
 var user = localStorage.getItem('userName');
 
 function initializeApp() {
-    codeNamesDb.saveState(game);
+
+    var ref = firebase.database().ref('/codenames');
+    ref.once('value').then(function(snapshot) {
+        var gameDb = snapshot.val();
+        if (gameDb === null) {
+            game = new Gameboard(deck, "red");
+            game.appendCards();
+            codeNamesDb.saveState(game);
+            gameSet = true;
+            $(".guess_box").on('click', game.checkGuess);
+        }
+    });
 
     $(".team_points").text(
         'Red: ' + teamPoints.red+ 
@@ -29,29 +39,17 @@ function clickHandler() {
 }
 
 function renderGame() {
-    debugger;
 
-    game = new Gameboard(deck, "red");
+    console.log('render game is called');
 
-    codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
-        var gameDb = snapshot.val();
-        if (gameDb === null) {
-            game = new Gameboard(deck, "red");
-        }
-    });
+    // game = new Gameboard(deck, "red");
 
     // codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
-    //     ----create board here----
-    //  });
-    var ref = firebase.database().ref('/codenames');
-    ref.once('value').then(function(snapshot) {
-        if (gameSet === false) {
-            game.appendCards();
-            gameSet = true;
-            codeNamesDb.saveState(game);
-            $(".guess_box").on('click', game.checkGuess);
-        }
-    });
+    //     var gameDb = snapshot.val();
+    //     if (gameDb === null) {
+    //         game = new Gameboard(deck, "red");
+    //     }
+    // });
     
     // console.log("renderGame called");
     // for (var key in databaseObject.cards) {

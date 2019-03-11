@@ -52,7 +52,6 @@ class Gameboard {
     }
 
     updatePoints(type) {
-        debugger;
         if (type === 'red') {
             teamPoints.red+=1;
         } else if (type === 'blue') {
