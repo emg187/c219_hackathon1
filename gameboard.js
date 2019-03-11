@@ -1,6 +1,6 @@
 class Gameboard {
     constructor(deck, currentTurn) {
-        this.cards = deck.cardArray;
+        this.cards = deck.possibleCards;
         this.currentTurn = currentTurn;
         this.revealCardsForSpymaster = false;
         this.position = 0;
