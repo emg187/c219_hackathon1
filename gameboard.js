@@ -36,27 +36,27 @@ class Gameboard {
 
         this.appendedCards[cardIndex].toggleStyling(cardIndex);
 
-        this.updatePoints(type);
         this.updateTurn(type);
 
         if (type === 'assassin') {
             game.handleAssassin();
         }
 
-        $(".team_points").empty().text(
-            'Red: ' + teamPoints.red+ 
-            ', Blue: ' + teamPoints.blue
-        );
-
         codeNamesDb.saveState(this);
     }
 
-    updatePoints(type) {
+    updatePoints() {
+        var type = $(event.currentTarget).text();
         if (type === 'red') {
             teamPoints.red+=1;
         } else if (type === 'blue') {
             teamPoints.blue+=1;
         }
+
+        $(".team_points").empty().text(
+            'Red: ' + teamPoints.red+ 
+            ', Blue: ' + teamPoints.blue
+        );
     }
 
     updateTurn(type) {

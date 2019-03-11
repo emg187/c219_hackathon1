@@ -2,7 +2,7 @@ class GenericFBModel {
     constructor(gameName, changeCallbackFunction) {
         this.boardName = gameName;
         this.db;
-        this.callback = null;
+        this.callback = changeCallbackFunction;
         this.lastSend = null;
 
         this.start();
@@ -23,8 +23,13 @@ class GenericFBModel {
         this.db.database().ref(this.boardName).on('value',this.handleDataUpdate);
     }
 
-    handleDataUpdate = (data) => {
-        // this.callback.call(null, data.val());
+    getAllData = (dataCallback) => {
+        this.db.database().ref(this.boardName).once('value', (snapshot) => {
+            dataCallback( snapshot.val() );
+        });
     }
 
+    handleDataUpdate = (data) => {
+        this.callback.call(null, data.val());
+    }
 }

@@ -7,45 +7,57 @@ var gameSet = false;
 var game = null;
 var codeNamesDb = null;
 
-var codeNamesDb = new GenericFBModel('codenames');
+var codeNamesDb = new GenericFBModel('codenames', renderGame);
 
 var user = localStorage.getItem('userName');
 
 function initializeApp() {
-    var ref = firebase.database().ref('/codenames');
-    ref.once('value').then(function(snapshot) {
+    codeNamesDb.getAllData(function(renderGame) {
         var gameDb = snapshot.val();
         if (gameDb === null) {
-            game = new Gameboard(deck, "red");
+            game = new Gameboard(deck, 'red');
             game.appendCards();
             gameSet = true;
             $(".guess_box").on('click', game.checkGuess);
             codeNamesDb.saveState(game);
         } else {
             for (var i=0; i<25; i++) {
+                debugger;
+                var type = gameDb.appendedCards[i].type;
                 var domElement = $("<div>").text(gameDb.appendedCards[i].word);
                 var classString = "guess_box " + gameDb.appendedCards[i].word;
+                if (gameDb.appendedCards[i].wasClicked === true) {
+                    $(domElement).addClass(type);
+                }
                 domElement.addClass(classString);
                 $(".game_container").append(domElement);
+                $(".guess_box").on('click', game.checkGuess);
             }
         }
-        codeNamesDb.saveState(game);
-    });
+    })
+
+    game = new Gameboard(deck, 'red');
+    debugger;
 
     $(".team_points").text(
         'Red: ' + teamPoints.red+ 
         ', Blue: ' + teamPoints.blue
     );
+
+    $(".guess_box").on('click', game.checkGuess);
     
     clickHandler();
 }
 
 function clickHandler() {
+    // $(".guess_box").on('click', game.updatePoints());
+
     $("#reset_game").on('click', resetGame);
     $("#spymasterButton").on('click', toggleColors);
 }
 
 function renderGame() {
+    console.log('render game called');
     // console.log('render game is called');
 
     // var ref = firebase.database().ref('/codenames');
@@ -65,15 +77,6 @@ function renderGame() {
     //     }
     // });
 
-    // game = new Gameboard(deck, "red");
-
-    // codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
-    //     var gameDb = snapshot.val();
-    //     if (gameDb === null) {
-    //         game = new Gameboard(deck, "red");
-    //     }
-    // });
-    
     // console.log("renderGame called");
     // for (var key in databaseObject.cards) {
     //     if (databaseObject.cards[key].wasClicked) {
@@ -102,14 +105,14 @@ function renderGame() {
 }
 
 function resetGame() {
-    for (var key in deck.cardArray) {
-        deck.randomizedCards[key].wasClicked = false;
-    }
     $(".gameContainer").empty();
     $(".winner").empty();
 
-    clickHandler();
-    codeNamesDb.saveState(game);
+    var ref = firebase.database().ref('/codenames');
+    ref.once('value').then(function(snapshot) {
+        game = null;
+        codeNamesDb.saveState(game);
+    });
 }
 
 function toggleColors() {
@@ -129,10 +132,4 @@ function toggleColors() {
     } else {
         game.revealCardsForSpymaster = false;
     }
-}
-
-function writeUserData(user) {
-    firebase.database().ref('/').set({
-        users: user
-    });
 }
