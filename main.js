@@ -3,14 +3,9 @@ $(document).ready(initializeApp);
 
 var deck = new AllCards();
 var teamPoints = { 'red': 0, 'blue': 0 };
-
+var gameSet = false;
 var game = null;
-var codeNamesDb = new GenericFBModel('/', renderGame);
-
-
-var dbCards = null;
-var dbTeamPoints = null;
-var dbTurn = "";
+var codeNamesDb = null;
 
 codeNamesDb.db.database().ref('/cards').once("value", function (snapshot) {
     console.log('Get Cards:', snapshot.val());
@@ -27,6 +22,7 @@ codeNamesDb.db.database().ref('/cards').once("value", function (snapshot) {
 //     dbTurn = snapshot.val();
 // });
 
+var user = localStorage.getItem('userName');
 
 function initializeApp() {
     game = new Gameboard(deck, teamPoints, "red");

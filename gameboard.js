@@ -1,7 +1,6 @@
 class Gameboard {
-    constructor(cardsObject, points, currentTurn) {
-        this.cards = cardsObject.possibleCards;
-        this.gamePoints = points;
+    constructor(deck, currentTurn) {
+        this.cards = deck.cardArray;
         this.currentTurn = currentTurn;
         this.revealCardsForSpymaster = false;
         this.position = 0;
@@ -55,7 +54,12 @@ class Gameboard {
             game.handleAssassin();
         }
 
-        codeNamesDb.saveState(game);
+        $(".team_points").empty().text(
+            'Red: ' + teamPoints.red+ 
+            ', Blue: ' + teamPoints.blue
+        );
+
+        codeNamesDb.saveState(this);
     }
 
     updatePoints(type) {
@@ -94,6 +98,8 @@ class Gameboard {
         } else {
             game.winner = 'red';
         }
+
+        $(".winner").text(game.winner + ' team wins!');
 
         $(".guess_box").off('click');
     }
