@@ -1,6 +1,6 @@
 class AllCards {
     constructor() {
-        this.possibleCards = {};
+        this.possibleCards = [];
         this.possibleWords = [
             'CAR', 'CANDY', 'FILM', 'DAY', 'SQUARE', 'NET',
             'PLASTIC', 'KNIFE', 'KIWI', 'DINOSAUR', 'TELESCOPE', 'MOUSE',
@@ -9,6 +9,7 @@ class AllCards {
             'BOTTLE', 'FORCE', 'CELL'
         ];
         this.cardObject;
+        this.cardArray = [];
 
         this.createAllCards();
     }
@@ -25,8 +26,9 @@ class AllCards {
             var randomIndex = Math.floor(Math.random() * this.possibleWords.length);
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
-            this.cardObject = new Card(randomWord, "red");
-            this.possibleCards[randomWord] = this.cardObject;
+            var cardObject = new Card(randomWord, "red");
+            this.possibleCards.push(cardObject);
+            this.cardArray.push(cardObject);
         }
     }
 
@@ -35,8 +37,9 @@ class AllCards {
             var randomIndex = Math.floor(Math.random() * this.possibleWords.length);
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
-            this.cardObject = new Card(randomWord, "blue");
-            this.possibleCards[randomWord] = this.cardObject;
+            var cardObject = new Card(randomWord, "blue");
+            this.possibleCards.push(cardObject);
+            this.cardArray.push(cardObject);
         }
     }
 
@@ -45,14 +48,16 @@ class AllCards {
             var randomIndex = Math.floor(Math.random() * this.possibleWords.length);
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
-            this.cardObject = new Card(randomWord, "civilian");
-            this.possibleCards[randomWord] = this.cardObject;
+            var cardObject = new Card(randomWord, "civilian");
+            this.possibleCards.push(cardObject);
+            this.cardArray.push(cardObject);
         }
     }
 
     createAssassin() {
         var randomWord = this.possibleWords[0];
-        this.cardObject = new Card(randomWord, "assassin");
-        this.possibleCards[randomWord] = this.cardObject;
+        var cardObject = new Card(randomWord, "assassin");
+        this.possibleCards.push(cardObject);
+        this.cardArray.push(cardObject);
     }
 }

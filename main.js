@@ -5,61 +5,75 @@ var deck = new AllCards();
 var teamPoints = { 'red': 0, 'blue': 0 };
 
 var game = null;
-var codeNamesDb = new GenericFBModel('/', renderGame);
+var gameSet = false;
+var codeNamesDb = new GenericFBModel('codenames', renderGame);
 
-
-var dbCards = null;
-var dbTeamPoints = null;
-var dbTurn = "";
-
-codeNamesDb.db.database().ref('/cards').once("value", function (snapshot) {
-    console.log('Get Cards:', snapshot.val());
-    dbCards = snapshot.val();
-});
-
-codeNamesDb.db.database().ref('/gamePoints').once("value", function (snapshot) {
-    console.log('Get teamPoints:', snapshot.val());
-    dbTeamPoints = snapshot.val();
-});
-
-codeNamesDb.db.database().ref('/currentTurn').once("value", function (snapshot) {
-    console.log('Get currentTurn:', snapshot.val());
-    dbTurn = snapshot.val();
-});
+var user = localStorage.getItem('userName');
 
 function initializeApp() {
-    var user = localStorage.getItem('userName');
-    debugger;
-    codeNamesDb.db.database().ref('/').once("value", function (snapshot) {
-        game = new Gameboard(deck, teamPoints, "red");
-        codeNamesDb.saveState(game);
-     });
-
-    console.log(user);
-    console.log(game.users);
-
+    game = new Gameboard(deck, "red");
     codeNamesDb.saveState(game);
+    // var ref = firebase.database().ref();
+    // ref.once('value', function(snapshot) {
+    //     return firebase.database().ref('/codenames').once('value').then(function(snapshot) {
+    //         // find a better condition than gameDb === null to check if game is already set
+            // game = new Gameboard(deck, "red");
+            // codeNamesDb.saveState(game);
+            // var gameDb = snapshot.val();
+    //         if (gameDb.gameSet === false) {
+                // debugger;
+                // game.appendCards();
+                // codeNamesDb.saveState(game);
+    //         } else {
+    //             debugger;
+    //             renderGame();
+    //         }
+    //         codeNamesDb.saveState(game);
+    //     });
+    // });
 
-    if (user === game.users[0]) {
-        codeNamesDb.saveState(game);
-    }
+    // game = new Gameboard(deck, teamPoints, "red");
+
+    // codeNamesDb.saveState(game);
+
+    // console.log(user);
+
+    // var ref = firebase.database().ref();
+    // ref.on('value', function(snapshot) {
+    //     return firebase.database().ref('/codenames').once('value').then(function(snapshot) {
+    //         var gameDb = snapshot.val();
+    //         debugger;
+    //         if (gameDb.firstUser === 0) {
+    //             gameDb.firstUser = [user];
+    //         } else {
+    //             gameDb.firstUser.push(user);
+    //         }
+    //     });
+    // });
 
     $(".team_points").text(
         'Red: ' + teamPoints.red+ 
         ', Blue: ' + teamPoints.blue
     );
-    game.appendCards();
 
     clickHandler();
 }
 
 function clickHandler() {
-    $(".guess_box").on('click', game.checkGuess);
     $("#reset_game").on('click', resetGame);
     $("#spymasterButton").on('click', toggleColors);
 }
 
-function renderGame(databaseObject) {
+function renderGame() {
+    var ref = firebase.database().ref('/codenames');
+    ref.once('value').then(function(snapshot) {
+        if (gameSet === false) {
+            game.appendCards();
+            gameSet = true;
+            codeNamesDb.saveState(game);
+            $(".guess_box").on('click', game.checkGuess);
+        }
+    });
 
     // if (!game.userName) {
     //     game.userName = 'user-' + Math.floor((Math.random() * 999999));
@@ -75,31 +89,31 @@ function renderGame(databaseObject) {
     // } else {
     //     renderGame();
     // }
-    console.log("renderGame called");
-    for (var key in databaseObject.cards) {
-        if (databaseObject.cards[key].wasClicked) {
-            switch (databaseObject.cards[key].type) {
-                case "red":
-                    $(`.${key}`).addClass("red");
-                    break;
-                case "blue":
-                    $(`.${key}`).addClass("blue");
-                    break;
-                case "civilian":
-                    $(`.${key}`).addClass("civilian");
-                    break; 
-                case "assassin":
-                    $(`.${key}`).addClass("assassin");
-                    break;
-            }
-        }
-        else {
-            $(`.${key}`).removeClass("red");
-            $(`.${key}`).removeClass("blue");
-            $(`.${key}`).removeClass("civilian");
-            $(`.${key}`).removeClass("assassin");
-        }
-    }
+    // console.log("renderGame called");
+    // for (var key in databaseObject.cards) {
+    //     if (databaseObject.cards[key].wasClicked) {
+    //         switch (databaseObject.cards[key].type) {
+    //             case "red":
+    //                 $(`.${key}`).addClass("red");
+    //                 break;
+    //             case "blue":
+    //                 $(`.${key}`).addClass("blue");
+    //                 break;
+    //             case "civilian":
+    //                 $(`.${key}`).addClass("civilian");
+    //                 break; 
+    //             case "assassin":
+    //                 $(`.${key}`).addClass("assassin");
+    //                 break;
+    //         }
+    //     }
+    //     else {
+    //         $(`.${key}`).removeClass("red");
+    //         $(`.${key}`).removeClass("blue");
+    //         $(`.${key}`).removeClass("civilian");
+    //         $(`.${key}`).removeClass("assassin");
+    //     }
+    // }
 }
 
 function resetGame() {
@@ -115,12 +129,12 @@ function resetGame() {
 
 function toggleColors() {
     console.log('revealed is: '+game.revealCardsForSpymaster);
-    for (var key in deck.possibleCards) {
-        var type = deck.possibleCards[key].type;
-        var divSelected = $(".game_container").find('.'+key);
+    for (var i=0; i<25; i++) {
+        var type = game.appendedCards[i].type;
+        var divSelected = $(".game_container").find('.'+game.appendedCards[i].word);
         if (game.revealCardsForSpymaster === false) {
             $(divSelected).addClass(type);
-        } else if (game.revealCardsForSpymaster === true && deck.possibleCards[key].wasClicked === false) {
+        } else if (game.revealCardsForSpymaster === true && game.appendedCards[i].wasClicked === false) {
             $(divSelected).removeClass(type);
         }
     }
@@ -130,4 +144,10 @@ function toggleColors() {
     } else {
         game.revealCardsForSpymaster = false;
     }
+}
+
+function writeUserData(user) {
+    firebase.database().ref('/').set({
+        users: user
+    });
 }
