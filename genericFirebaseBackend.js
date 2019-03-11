@@ -4,7 +4,6 @@ class GenericFBModel {
         this.db;
         this.callback = changeCallbackFunction;
         this.lastSend = null;
-        // this.snapshot = null;
 
         this.start();
     }

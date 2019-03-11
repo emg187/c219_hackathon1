@@ -14,21 +14,17 @@ class Card {
         return domElement;
     }
 
-    toggleStyling(value) {
-        if (deck.possibleCards[value].type === "civilian") {
+    toggleStyling(cardIndex) {
+        if (game.appendedCards[cardIndex].type === "civilian") {
             $(event.currentTarget).addClass("civilian");
-        } else if (deck.possibleCards[value].type === "assassin") {
+        } else if (game.appendedCards[cardIndex].type === "assassin") {
             $(event.currentTarget).addClass("assassin");
         } else {
-            if (deck.possibleCards[value].type === "red") {
+            if (game.appendedCards[cardIndex].type === "red") {
                 $(event.currentTarget).addClass("red");
             } else {
                 $(event.currentTarget).addClass("blue");
             }
         }
-    }
-
-    returnType(value) {
-        return deck.possibleCards[value].type
     }
 }
