@@ -13,43 +13,6 @@ var user = localStorage.getItem('userName');
 function initializeApp() {
     game = new Gameboard(deck, "red");
     codeNamesDb.saveState(game);
-    // var ref = firebase.database().ref();
-    // ref.once('value', function(snapshot) {
-    //     return firebase.database().ref('/codenames').once('value').then(function(snapshot) {
-    //         // find a better condition than gameDb === null to check if game is already set
-            // game = new Gameboard(deck, "red");
-            // codeNamesDb.saveState(game);
-            // var gameDb = snapshot.val();
-    //         if (gameDb.gameSet === false) {
-                // debugger;
-                // game.appendCards();
-                // codeNamesDb.saveState(game);
-    //         } else {
-    //             debugger;
-    //             renderGame();
-    //         }
-    //         codeNamesDb.saveState(game);
-    //     });
-    // });
-
-    // game = new Gameboard(deck, teamPoints, "red");
-
-    // codeNamesDb.saveState(game);
-
-    // console.log(user);
-
-    // var ref = firebase.database().ref();
-    // ref.on('value', function(snapshot) {
-    //     return firebase.database().ref('/codenames').once('value').then(function(snapshot) {
-    //         var gameDb = snapshot.val();
-    //         debugger;
-    //         if (gameDb.firstUser === 0) {
-    //             gameDb.firstUser = [user];
-    //         } else {
-    //             gameDb.firstUser.push(user);
-    //         }
-    //     });
-    // });
 
     $(".team_points").text(
         'Red: ' + teamPoints.red+ 
@@ -74,21 +37,7 @@ function renderGame() {
             $(".guess_box").on('click', game.checkGuess);
         }
     });
-
-    // if (!game.userName) {
-    //     game.userName = 'user-' + Math.floor((Math.random() * 999999));
-    //     localStorage.setItem('userName', game.userName);
-    // }
-
-    // databaseObject.userName = game.userName;
-    // console.log(databaseObject);
-    // console.log('userName is: ' + game.userName);
-
-    // if (databaseObject.userName === null || game.userName !== databaseObject.userName) {
-    //     resetGame();
-    // } else {
-    //     renderGame();
-    // }
+    
     // console.log("renderGame called");
     // for (var key in databaseObject.cards) {
     //     if (databaseObject.cards[key].wasClicked) {
