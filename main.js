@@ -33,6 +33,8 @@ function initializeApp() {
     // game = new Gameboard(dbCards, dbTeamPoints, dbTurn);
     game.appendCards();
 
+    $(".team_points").text('Red: '+teamPoints.red +', Blue: '+teamPoints.blue);
+
     clickHandler();
 }
 
@@ -61,6 +63,8 @@ function renderGame(databaseObject) {
     // } else {
     //     renderGame();
     // }
+
+    deck.possibleCards = databaseObject.cards;
     console.log("renderGame called");
     for (var key in databaseObject.cards) {
         if (databaseObject.cards[key].wasClicked) {

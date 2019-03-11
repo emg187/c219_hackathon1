@@ -9,6 +9,10 @@ class AllCards {
             'BOTTLE', 'FORCE', 'CELL'
         ];
         this.cardObject;
+        this.position = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                        11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                        21, 22, 23, 24, 25
+                    ];
         
         this.createAllCards();
     }
@@ -25,8 +29,9 @@ class AllCards {
             var randomIndex = Math.floor(Math.random() * this.possibleWords.length);
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
-            debugger;
             this.cardObject = new Card(randomWord, "red");
+            this.cardObject.position = this.position[randomIndex];
+            this.position.splice(randomIndex, 1);
             this.possibleCards[randomWord] = this.cardObject;
         }
     }
@@ -37,6 +42,8 @@ class AllCards {
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
             this.cardObject = new Card(randomWord, "blue");
+            this.cardObject.position = this.position[randomIndex];
+            this.position.splice(randomIndex, 1);
             this.possibleCards[randomWord] = this.cardObject;
         }
     }
@@ -47,6 +54,8 @@ class AllCards {
             var randomWord = this.possibleWords[randomIndex];
             this.possibleWords.splice(randomIndex, 1);
             this.cardObject = new Card(randomWord, "civilian");
+            this.cardObject.position = this.position[randomIndex];
+            this.position.splice(randomIndex, 1);
             this.possibleCards[randomWord] = this.cardObject;
         }
     }
@@ -54,6 +63,8 @@ class AllCards {
     createAssassin() {
         var randomWord = this.possibleWords[0];
         this.cardObject = new Card(randomWord, "assassin");
+        // this.cardObject.position = this.position[randomIndex];
+        // this.position.splice(randomIndex, 1);
         this.possibleCards[randomWord] = this.cardObject;
     }
 }
