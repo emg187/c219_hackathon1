@@ -17,15 +17,15 @@ codeNamesDb.db.database().ref('/cards').once("value", function (snapshot) {
     dbCards = snapshot.val();
 });
 
-codeNamesDb.db.database().ref('/gamePoints').once("value", function (snapshot) {
-    console.log('Get teamPoints:', snapshot.val());
-    dbTeamPoints = snapshot.val();
-});
+// codeNamesDb.db.database().ref('/gamePoints').once("value", function (snapshot) {
+//     console.log('Get teamPoints:', snapshot.val());
+//     dbTeamPoints = snapshot.val();
+// });
 
-codeNamesDb.db.database().ref('/currentTurn').once("value", function (snapshot) {
-    console.log('Get currentTurn:', snapshot.val());
-    dbTurn = snapshot.val();
-});
+// codeNamesDb.db.database().ref('/currentTurn').once("value", function (snapshot) {
+//     console.log('Get currentTurn:', snapshot.val());
+//     dbTurn = snapshot.val();
+// });
 
 
 function initializeApp() {
